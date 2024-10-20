@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  www:
+    container_name: www
+    build:
+      context: ./www
+      dockerfile: Dockerfile
+    volumes:
+      - ./www:/var/www
+    restart: always
+  nginx_api:
+    container_name: nginx_api
+    build:
+      context: ./www
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - '8080:8080'
+    restart: always
