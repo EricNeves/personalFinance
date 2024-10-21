@@ -6,7 +6,7 @@ services:
       context: ./www
       dockerfile: Dockerfile
     volumes:
-      - ./www:/var/www
+      - ./www:/var/www/html
     restart: always
   nginx_api:
     container_name: nginx_api
