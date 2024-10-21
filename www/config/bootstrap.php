@@ -75,7 +75,7 @@ function handleMiddlewares(array $middlewaresKey, array $middlewares, array $rou
             $middleware = new $middlewareClass();
 
             $middleware->handle($request, $response, function ($req) use ($route, $request, $response, $params) {
-               callController($route, $request, $response, $params);
+                callController($route, $req, $response, $params);
             });
         }
     }
