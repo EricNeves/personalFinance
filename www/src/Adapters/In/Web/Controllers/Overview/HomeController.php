@@ -5,7 +5,7 @@ namespace App\Adapters\In\Web\Controllers\Overview;
 use App\Infrasctructure\Http\Request;
 use App\Infrasctructure\Http\Response;
 
-class HomeController
+readonly class HomeController
 {
     public function handle(Request $request, Response $response): void
     {

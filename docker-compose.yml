@@ -16,3 +16,18 @@ services:
     ports:
       - '8080:8080'
     restart: always
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'bg_flow'
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./resources/sql:/docker-entrypoint-initdb.d
+
+volumes:
+  db_data:

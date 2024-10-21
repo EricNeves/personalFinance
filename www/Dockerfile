@@ -13,7 +13,9 @@ RUN apk add \
 
 RUN pecl install redis
 
-RUN docker-php-ext-enable redis.so
+RUN docker-php-ext-enable redis.so \
+    && \
+    docker-php-ext-install pdo pdo_pgsql
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
