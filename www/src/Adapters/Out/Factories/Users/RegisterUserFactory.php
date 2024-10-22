@@ -2,11 +2,10 @@
 
 namespace App\Adapters\Out\Factories\Users;
 
-use App\Adapters\Out\Persistence\UserPostgresRepository;
-use App\Adapters\Out\Shared\PasswordHarsherImplementation;
-use App\Adapters\Out\Shared\UuidGeneratorImplementation;
-use App\Application\Shared\PasswordHarsher;
-use App\Application\Shared\UuidGenerator;
+use App\Adapters\Out\Persistence\Repositories\UserPostgresRepository;
+use App\Adapters\Out\Services\PasswordPasswordHashImplementation;
+use App\Adapters\Out\Services\UuidGeneratorImplementation;
+use App\Application\Shared\UserEmailAlreadyExists;
 use App\Application\UseCases\Users\RegisterUser\RegisterUserUseCase;
 use App\Infrasctructure\Database\Postgres;
 
@@ -16,10 +15,14 @@ class RegisterUserFactory
     {
         $userPostgresRepository        = new UserPostgresRepository(Postgres::connect());
         $uuidGeneratorImplementation   = new UuidGeneratorImplementation();
-        $uuidGenerator                 = new UuidGenerator($uuidGeneratorImplementation);
-        $passwordHarsherImplementation = new PasswordHarsherImplementation();
-        $passwordHarsher               = new PasswordHarsher($passwordHarsherImplementation);
+        $passwordHarsherImplementation = new PasswordPasswordHashImplementation();
+        $userEmailAlreadyExists        = new UserEmailAlreadyExists($userPostgresRepository);
 
-        return new RegisterUserUseCase($userPostgresRepository, $uuidGenerator, $passwordHarsher);
+        return new RegisterUserUseCase(
+            $userPostgresRepository,
+            $userEmailAlreadyExists,
+            $uuidGeneratorImplementation,
+            $passwordHarsherImplementation
+        );
     }
 }

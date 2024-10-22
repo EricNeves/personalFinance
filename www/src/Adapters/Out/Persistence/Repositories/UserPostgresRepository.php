@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adapters\Out\Persistence;
+namespace App\Adapters\Out\Persistence\Repositories;
 
 
 use App\Domain\Entities\User;
@@ -18,10 +18,22 @@ class UserPostgresRepository implements UserRepositoryPort
         $stmt = $this->db->prepare("INSERT INTO users (id, name, email, password) values (?, ?, ?, ?)");
         $stmt->execute([$user->getId(), $user->getName(), $user->getEmail(), $user->getPassword()]);
 
-        if (!$this->db->lastInsertId() > 0) {
+        if (!$stmt->rowCount() > 0) {
             return false;
         }
 
         return true;
+    }
+    
+    public function emailExists(string $email): bool
+    {
+        $stmt = $this->db->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+        
+        return false;
     }
 }

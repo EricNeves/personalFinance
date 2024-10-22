@@ -7,4 +7,5 @@ use App\Domain\Entities\User;
 interface UserRepositoryPort
 {
     public function save(User $user): bool;
+    public function emailExists(string $email): bool;
 }
