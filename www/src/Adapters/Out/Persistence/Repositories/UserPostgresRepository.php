@@ -36,4 +36,18 @@ class UserPostgresRepository implements UserRepositoryPort
         
         return false;
     }
+    
+    public function findByEmail(string $email): ?User
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            return new User($row['id'], $row['name'], $row['email'], $row['password']);
+        }
+        
+        return null;
+    }
 }
