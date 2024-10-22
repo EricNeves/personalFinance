@@ -6,17 +6,18 @@ use App\Infrasctructure\Exceptions\ApplicationErrors\HttpBodyValidatorException;
 use App\Infrasctructure\Exceptions\ApplicationErrors\RegisterUserException;
 use App\Infrasctructure\Http\Response;
 use Exception;
+use Throwable;
 
 class HandleExceptions
 {
-    public static function handle(Exception $exception): void
+    public static function handle(Throwable $exception): void
     {
         $response = new Response();
 
         $class_exception = [
             HttpBodyValidatorException::class => ['message' => $exception->getMessage(), 'http_code' => 422],
-            RegisterUserException::class => [ 'message' => $exception->getMessage(), 'http_code' => 400],
-            Exception::class => [ 'message' => $exception->getMessage(), 'http_code' => 400]
+            Exception::class => [ 'message' => $exception->getMessage(), 'http_code' => 400],
+            Throwable::class => [ 'message' => $exception->getMessage(), 'http_code' => 400]
         ];
 
         foreach ($class_exception as $class_exception_class => $class_exception_value) {

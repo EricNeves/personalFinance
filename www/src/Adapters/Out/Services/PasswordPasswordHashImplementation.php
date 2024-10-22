@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Adapters\Out\Shared;
+namespace App\Adapters\Out\Services;
 
-use App\Domain\Services\Harsher;
+use App\Domain\Services\PasswordHash;
 
-class PasswordHarsherImplementation implements Harsher
+class PasswordPasswordHashImplementation implements PasswordHash
 {
     public function hash(string $password): string
     {

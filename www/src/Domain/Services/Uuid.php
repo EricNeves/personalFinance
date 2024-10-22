@@ -4,5 +4,5 @@ namespace App\Domain\Services;
 
 interface Uuid
 {
-    public function generate_v4(): string;
+    public function generateV4(): string;
 }

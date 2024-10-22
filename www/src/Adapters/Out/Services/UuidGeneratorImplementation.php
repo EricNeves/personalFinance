@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Adapters\Out\Shared;
+namespace App\Adapters\Out\Services;
 
 use App\Domain\Services\Uuid;
 use Ramsey\Uuid\Uuid as UuidLib;
 
 class UuidGeneratorImplementation implements Uuid
 {
-    public function generate_v4(): string
+    public function generateV4(): string
     {
         return UuidLib::uuid4()->toString();
     }

@@ -4,7 +4,7 @@ namespace App\Domain\Entities;
 
 use JsonSerializable;
 
-readonly class User implements JsonSerializable
+class User implements JsonSerializable
 {
     public function __construct(
         private readonly string $id,
@@ -36,6 +36,10 @@ readonly class User implements JsonSerializable
     
     public function jsonSerialize(): array
     {
-        return get_object_vars($this);
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'email' => $this->email,
+        ];
     }
 }
