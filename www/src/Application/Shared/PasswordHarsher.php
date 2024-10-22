@@ -4,7 +4,7 @@ namespace App\Application\Shared;
 
 use App\Domain\Services\Harsher;
 
-readonly class PasswordHarsher
+class PasswordHarsher
 {
     public function __construct(private readonly Harsher $harsher)
     {

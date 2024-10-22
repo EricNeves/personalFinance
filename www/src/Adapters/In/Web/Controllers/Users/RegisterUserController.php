@@ -2,14 +2,14 @@
 
 namespace App\Adapters\In\Web\Controllers\Users;
 
+use App\Adapters\Out\Factories\Users\RegisterUserFactory;
 use App\Application\DTOs\Users\RegisterUserDTO;
-use App\Application\UseCases\Users\RegisterUser\RegisterUserUseCase;
 use App\Infrasctructure\Http\Request;
 use App\Infrasctructure\Http\Response;
 
 readonly class RegisterUserController
 {
-    public function __construct()
+    public function __construct(private readonly RegisterUserFactory $registerUserFactory)
     {
     }
     
@@ -20,7 +20,11 @@ readonly class RegisterUserController
             'email'    => 'required|email',
             'password' => 'required',
         ]);
-        
-        $response->json($body, 201);
+
+        $registerUserDTO = new RegisterUserDTO($body['name'], $body['email'], $body['password']);
+
+        $registerUserUseCase = $this->registerUserFactory->init()->execute($registerUserDTO);
+
+        $response->json(['data' => $registerUserUseCase],201);
     }
 }

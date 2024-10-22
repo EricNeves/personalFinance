@@ -4,7 +4,7 @@ namespace App\Infrasctructure\Database;
 
 use PDO;
 
-readonly class Postgres
+class Postgres
 {
     public static function connect(): PDO
     {

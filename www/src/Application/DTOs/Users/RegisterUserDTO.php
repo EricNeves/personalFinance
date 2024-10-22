@@ -2,10 +2,13 @@
 
 namespace App\Application\DTOs\Users;
 
-readonly class RegisterUserDTO
+class RegisterUserDTO
 {
-    public function __construct(private readonly string $name, private readonly string $email, private readonly string $password)
-    {
+    public function __construct(
+        private readonly string $name,
+        private readonly string $email,
+        private readonly string $password
+    ) {
     }
     
     public function getName(): string
