@@ -8,7 +8,7 @@ class Response
     {
         header('Content-Type: application/json');
         http_response_code($status);
-        echo json_encode($data);
+        echo json_encode($data, JSON_UNESCAPED_SLASHES);
         exit;
     }
 }

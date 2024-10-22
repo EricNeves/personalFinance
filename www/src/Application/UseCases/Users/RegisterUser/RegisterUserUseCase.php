@@ -9,7 +9,7 @@ use App\Application\Shared\PasswordHarsher;
 use App\Application\Shared\UuidGenerator;
 use App\Infrasctructure\Exceptions\ApplicationErrors\RegisterUserException;
 
-readonly class RegisterUserUseCase implements IRegisterUserUseCase
+class RegisterUserUseCase implements IRegisterUserUseCase
 {
     public function __construct(
         private readonly UserRepositoryPort $userRepositoryPort,
@@ -18,7 +18,7 @@ readonly class RegisterUserUseCase implements IRegisterUserUseCase
     ) {
     }
     
-    public function execute(RegisterUserDTO $registerUserDTO): void
+    public function execute(RegisterUserDTO $registerUserDTO): User
     {
         $password = $this->passwordHarsher->generateHash($registerUserDTO->getPassword());
         $uuid     = $this->uuidGenerator->generateV4();
@@ -28,7 +28,9 @@ readonly class RegisterUserUseCase implements IRegisterUserUseCase
         $save = $this->userRepositoryPort->save($user);
         
         if (!$save) {
-            throw new RegisterUserException("Sorry, we could not register your account, try again later.");
+            throw new RegisterUserException('Sorry, we could not register your account, try again later.');
         }
+
+        return $user;
     }
 }
