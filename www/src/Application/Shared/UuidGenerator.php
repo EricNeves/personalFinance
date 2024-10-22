@@ -4,7 +4,7 @@ namespace App\Application\Shared;
 
 use App\Domain\Services\Uuid;
 
-readonly class UuidGenerator
+class UuidGenerator
 {
     public function __construct(private readonly Uuid $uuid)
     {
