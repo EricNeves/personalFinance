@@ -11,4 +11,5 @@ interface UserRepositoryPort
     public function findByEmail(string $email): ?User;
     public function findById(string $id): ?User;
     public function updateUsername(string $name, string $userID): ?User;
+    public function updatePassword(string $password, string $userID): bool;
 }
