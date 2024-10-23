@@ -53,15 +53,39 @@ class UserPostgresRepository implements UserRepositoryPort
 
     public function findById(string $id): ?User
     {
-        $stmt = $this->db->prepare("SELECT id, name, email FROM users WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->execute([$id]);
 
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            return new User($row['id'], $row['name'], $row['email']);
+            return new User($row['id'], $row['name'], $row['email'], $row['password']);
         }
 
         return null;
+    }
+    
+    public function updateUsername(string $name, string $userID): ?User
+    {
+        $stmt = $this->db->prepare("UPDATE users SET name = ? WHERE id = ?");
+        $stmt->execute([$name, $userID]);
+        
+        if ($stmt->rowCount() > 0) {
+            return $this->findById($userID);
+        }
+        
+        return null;
+    }
+    
+    public function updatePassword(string $password, string $userID): bool
+    {
+        $stmt = $this->db->prepare("UPDATE users SET password = ? WHERE id = ?");
+        $stmt->execute([$password, $userID]);
+        
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+        
+        return false;
     }
 }
