@@ -4,8 +4,10 @@ use App\Infrasctructure\Http\Route;
 use App\Adapters\In\Web\Controllers\Overview\HomeController;
 use App\Adapters\In\Web\Controllers\Users\RegisterUserController;
 use App\Adapters\In\Web\Controllers\Users\AuthenticateUserController;
+use \App\Adapters\In\Web\Controllers\Users\FetchUserController;
 
 Route::get('/', [HomeController::class, 'handle']);
 
 Route::post('/users/register', [RegisterUserController::class, 'handle']);
 Route::post('/users/authenticate', [AuthenticateUserController::class, 'handle']);
+Route::get('/users/fetch', [FetchUserController::class, 'handle'])->middlewares('auth');

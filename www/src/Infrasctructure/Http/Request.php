@@ -2,10 +2,14 @@
     
 namespace App\Infrasctructure\Http;
 
+use App\Domain\Entities\UserContext;
 use App\Infrasctructure\Exceptions\ApplicationErrors\HttpBodyValidatorException;
-    
+use App\Infrasctructure\Exceptions\ApplicationErrors\UnauthorizedException;
+
 class Request
 {
+    private UserContext $user;
+
     /**
      * @return string
      */
@@ -60,5 +64,32 @@ class Request
         if ($rule === 'email' && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
             throw new HttpBodyValidatorException("The field {$field} is not a valid email");
         }
+    }
+
+    public function bearerToken(): string
+    {
+        $headers = getallheaders();
+
+        if (!isset($headers['Authorization'])) {
+            throw new UnauthorizedException('Please, provide a bearer token', 401);
+        }
+
+        $tokenPartials = explode(' ', $headers['Authorization']);
+
+        if (count($tokenPartials) !== 2 || $tokenPartials[0] !== 'Bearer') {
+            throw new UnauthorizedException('Please, provide a bearer token', 401);
+        }
+
+        return $tokenPartials[1];
+    }
+
+    public function setUser(UserContext $user): void
+    {
+        $this->user = $user;
+    }
+
+    public function user(): UserContext
+    {
+        return $this->user;
     }
 }

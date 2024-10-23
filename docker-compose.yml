@@ -8,6 +8,8 @@ services:
     volumes:
       - ./www:/var/www/html
     restart: always
+    depends_on:
+      - postgres
   nginx_api:
     container_name: nginx_api
     build:
