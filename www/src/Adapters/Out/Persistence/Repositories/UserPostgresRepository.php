@@ -64,4 +64,16 @@ class UserPostgresRepository implements UserRepositoryPort
 
         return null;
     }
+    
+    public function updateUsername(string $name, string $userID): ?User
+    {
+        $stmt = $this->db->prepare("UPDATE users SET name = ? WHERE id = ?");
+        $stmt->execute([$name, $userID]);
+        
+        if ($stmt->rowCount() > 0) {
+            return $this->findById($userID);
+        }
+        
+        return null;
+    }
 }
