@@ -14,7 +14,7 @@ class JWT
         
         $header_encoded    = self::base64UrlEncode($header);
         $payload_encoded   = self::base64UrlEncode($payload);
-        $signature_encoded = self::base64UrlEncode(self::signature($header_encoded, $payload_encoded));
+        $signature_encoded = self::signature($header_encoded, $payload_encoded);
         
         return "$header_encoded.$payload_encoded.$signature_encoded";
     }
@@ -51,7 +51,7 @@ class JWT
         }
 
         [$header_encoded, $payload_encoded, $signature] = $tokenPartials;
-
+        
         if ($signature !== self::signature($header_encoded, $payload_encoded)) {
             return false;
         }
