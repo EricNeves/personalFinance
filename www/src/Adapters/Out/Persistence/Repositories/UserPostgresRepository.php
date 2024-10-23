@@ -50,4 +50,18 @@ class UserPostgresRepository implements UserRepositoryPort
         
         return null;
     }
+
+    public function findById(string $id): ?User
+    {
+        $stmt = $this->db->prepare("SELECT id, name, email FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return new User($row['id'], $row['name'], $row['email']);
+        }
+
+        return null;
+    }
 }

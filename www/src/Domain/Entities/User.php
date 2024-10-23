@@ -10,7 +10,7 @@ class User implements JsonSerializable
         private readonly string $id,
         private readonly string $name,
         private readonly string $email,
-        private readonly string $password
+        private readonly ?string $password = null
     ) {
     }
     
@@ -29,7 +29,7 @@ class User implements JsonSerializable
         return $this->email;
     }
     
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }

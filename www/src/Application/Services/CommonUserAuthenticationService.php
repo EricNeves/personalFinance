@@ -6,7 +6,7 @@ use App\Domain\Ports\In\CommonAuthenticationPort;
 use App\Domain\Ports\Out\TokenServicePort;
 use App\Domain\Ports\Out\UserRepositoryPort;
 use App\Domain\Services\PasswordHash;
-use App\Infrasctructure\Exceptions\ApplicationErrors\CommonAuthenticateException;
+use App\Infrasctructure\Exceptions\ApplicationErrors\UnauthorizedException;
 
 class CommonUserAuthenticationService implements CommonAuthenticationPort
 {
@@ -22,7 +22,7 @@ class CommonUserAuthenticationService implements CommonAuthenticationPort
         $user = $this->userRepositoryPort->findByEmail($email);
         
         if (!$user || !$this->passwordHash->verify($password, $user->getPassword())) {
-            throw new CommonAuthenticateException("Sorry, email or password is incorrect.");
+            throw new UnauthorizedException("Sorry, email or password is incorrect.");
         }
         
         $payload = ['id' => $user->getId(), 'email' => $user->getEmail()];
