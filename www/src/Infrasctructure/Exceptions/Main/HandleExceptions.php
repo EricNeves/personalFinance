@@ -4,8 +4,8 @@ namespace App\Infrasctructure\Exceptions\Main;
 
 use App\Infrasctructure\Exceptions\ApplicationErrors\CommonAuthenticateException;
 use App\Infrasctructure\Exceptions\ApplicationErrors\HttpBodyValidatorException;
-use App\Infrasctructure\Exceptions\ApplicationErrors\RegisterUserException;
 use App\Infrasctructure\Http\Response;
+use Dotenv\Exception\InvalidPathException;
 use Exception;
 use Throwable;
 
@@ -18,6 +18,7 @@ class HandleExceptions
         $class_exception = [
             HttpBodyValidatorException::class  => ['message' => $exception->getMessage(), 'http_code' => 422],
             CommonAuthenticateException::class => ['message' => $exception->getMessage(), 'http_code' => 401],
+            InvalidPathException::class => ['message' => $exception->getMessage(), 'http_code' => 500],
             Exception::class => [ 'message' => $exception->getMessage(), 'http_code' => 400],
             Throwable::class => [ 'message' => $exception->getMessage(), 'http_code' => 400]
         ];

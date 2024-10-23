@@ -7,7 +7,7 @@ use App\Application\DTOs\Users\RegisterUserDTO;
 use App\Infrasctructure\Http\Request;
 use App\Infrasctructure\Http\Response;
 
-readonly class RegisterUserController
+class RegisterUserController
 {
     public function __construct(private readonly RegisterUserFactory $registerUserFactory)
     {
