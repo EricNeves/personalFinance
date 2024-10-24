@@ -16,8 +16,8 @@ Route::get('/', [HomeController::class, 'handle']);
 /**
  * User
  */
-Route::post('/users/register', [RegisterUserController::class, 'handle']);
-Route::post('/users/authenticate', [AuthenticateUserController::class, 'handle']);
-Route::get('/users/fetch', [FetchUserController::class, 'handle'])->middlewares('auth');
-Route::put('/users/info/edit', [EditUserController::class, 'handle'])->middlewares('auth');
-Route::put('/users/change-password', [ChangePasswordController::class, 'handle'])->middlewares('auth');
+Route::post('/api/users/register', [RegisterUserController::class, 'handle']);
+Route::post('/api/users/authenticate', [AuthenticateUserController::class, 'handle']);
+Route::get('/api/users/fetch', [FetchUserController::class, 'handle'])->middlewares('auth');
+Route::put('/api/users/info/edit', [EditUserController::class, 'handle'])->middlewares('auth');
+Route::put('/api/users/change-password', [ChangePasswordController::class, 'handle'])->middlewares('auth');
