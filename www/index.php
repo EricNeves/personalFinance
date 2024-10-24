@@ -14,4 +14,6 @@ set_exception_handler([HandleExceptions::class, 'handle']);
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+date_default_timezone_set('America/Sao_Paulo');
+
 dispatch(Route::getRoutes(), $middlewares);

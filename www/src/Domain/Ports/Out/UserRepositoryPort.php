@@ -10,6 +10,6 @@ interface UserRepositoryPort
     public function emailExists(string $email): bool;
     public function findByEmail(string $email): ?User;
     public function findById(string $id): ?User;
-    public function updateUsername(string $name, string $userID): ?User;
-    public function updatePassword(string $password, string $userID): bool;
+    public function updateUsername(string $name, string $currentDateTime, string $userID): ?User;
+    public function updatePassword(string $password, string $currentDateTime, string $userID): bool;
 }
