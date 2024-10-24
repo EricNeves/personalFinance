@@ -9,6 +9,7 @@ use App\Domain\Ports\Out\UserRepositoryPort;
 use App\Domain\Services\PasswordHash;
 use App\Infrasctructure\Exceptions\ApplicationErrors\RegisterUserException;
 use App\Domain\Services\Uuid;
+use App\Domain\Services\DateAndTime;
 
 class RegisterUserUseCase implements IRegisterUserUseCase
 {
@@ -16,7 +17,8 @@ class RegisterUserUseCase implements IRegisterUserUseCase
         private readonly UserRepositoryPort $userRepositoryPort,
         private readonly UserEmailAlreadyExists $userEmailAlreadyExists,
         private readonly Uuid $uuid,
-        private readonly PasswordHash $passwordHash
+        private readonly PasswordHash $passwordHash,
+        private readonly DateAndTime $dataAndTime
     ) {
     }
     
@@ -24,10 +26,11 @@ class RegisterUserUseCase implements IRegisterUserUseCase
     {
         $password = $this->passwordHash->hash($registerUserDTO->getPassword());
         $uuid     = $this->uuid->generateV4();
+        $dateTime = $this->dataAndTime->currentDateTime();
         
         $this->userEmailAlreadyExists->verify($registerUserDTO->getEmail());
         
-        $user = new User($uuid, $registerUserDTO->getName(), $registerUserDTO->getEmail(), $password);
+        $user = new User($uuid, $registerUserDTO->getName(), $registerUserDTO->getEmail(), $password, $dateTime);
         
         $save = $this->userRepositoryPort->save($user);
         

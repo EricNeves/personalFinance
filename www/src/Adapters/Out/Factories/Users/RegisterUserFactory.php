@@ -3,6 +3,7 @@
 namespace App\Adapters\Out\Factories\Users;
 
 use App\Adapters\Out\Persistence\Repositories\UserPostgresRepository;
+use App\Adapters\Out\Services\DateAndTimeImplementation;
 use App\Adapters\Out\Services\PasswordPasswordHashImplementation;
 use App\Adapters\Out\Services\UuidGeneratorImplementation;
 use App\Application\Shared\UserEmailAlreadyExists;
@@ -17,12 +18,14 @@ class RegisterUserFactory
         $uuidGeneratorImplementation   = new UuidGeneratorImplementation();
         $passwordHarsherImplementation = new PasswordPasswordHashImplementation();
         $userEmailAlreadyExists        = new UserEmailAlreadyExists($userPostgresRepository);
+        $dateAndTimeImplementation     = new DateAndTimeImplementation();
 
         return new RegisterUserUseCase(
             $userPostgresRepository,
             $userEmailAlreadyExists,
             $uuidGeneratorImplementation,
-            $passwordHarsherImplementation
+            $passwordHarsherImplementation,
+            $dateAndTimeImplementation,
         );
     }
 }
