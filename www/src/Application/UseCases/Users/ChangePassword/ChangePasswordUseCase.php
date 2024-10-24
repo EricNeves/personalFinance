@@ -24,7 +24,7 @@ class ChangePasswordUseCase implements IChangePasswordUseCase
         $user = $this->authenticatedUserInformation->fetch($changePasswordDTO->getId());
         
         if (!$this->passwordHash->verify($changePasswordDTO->getOldPassword(), $user->getPassword())) {
-            throw new UnauthorizedException("Password does not match.");
+            throw new UnauthorizedException('Old password does not match.');
         }
         
         $hashNewPassword = $this->passwordHash->hash($changePasswordDTO->getNewPassword());
@@ -32,7 +32,7 @@ class ChangePasswordUseCase implements IChangePasswordUseCase
         $updatePassword = $this->userRepositoryPort->updatePassword($hashNewPassword, $user->getId());
         
         if (!$updatePassword) {
-            throw new BadRequestException("Failed to update password.");
+            throw new BadRequestException('Failed to update password.');
         }
     }
 }
