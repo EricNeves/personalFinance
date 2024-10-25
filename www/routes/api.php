@@ -1,5 +1,6 @@
 <?php
 
+use App\Adapters\In\Web\Controllers\Images\UploadImageController;
 use App\Infrasctructure\Http\Route;
 use App\Adapters\In\Web\Controllers\Users\EditUserController;
 use App\Adapters\In\Web\Controllers\Overview\HomeController;
@@ -21,3 +22,8 @@ Route::post('/api/users/authenticate', [AuthenticateUserController::class, 'hand
 Route::get('/api/users/fetch', [FetchUserController::class, 'handle'])->middlewares('auth');
 Route::put('/api/users/info/edit', [EditUserController::class, 'handle'])->middlewares('auth');
 Route::put('/api/users/change-password', [ChangePasswordController::class, 'handle'])->middlewares('auth');
+
+/**
+ * Upload User Images
+ */
+Route::post('/api/images/upload', [UploadImageController::class, 'handle'])->middlewares('auth');

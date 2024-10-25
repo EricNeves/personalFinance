@@ -16,8 +16,6 @@ class FetchUserController
     {
         $info = $this->fetchUserFactory->init()->execute($request->user()->id());
 
-        $response->json([
-            'data' => $info
-        ]);
+        $response->json(['data' => $info]);
     }
 }
