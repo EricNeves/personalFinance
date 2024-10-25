@@ -10,6 +10,7 @@ class Image implements JsonSerializable
     public function __construct(
         private readonly string $id,
         private readonly string $filename,
+        private readonly string $tmpName,
         private readonly string $path,
         private readonly string $mimeType,
         private readonly int $size,
@@ -27,6 +28,11 @@ class Image implements JsonSerializable
     public function getFilename(): string
     {
         return $this->filename;
+    }
+    
+    public function getTmpName(): string
+    {
+        return $this->tmpName;
     }
 
     public function getPath(): string
@@ -52,6 +58,11 @@ class Image implements JsonSerializable
     public function getUpdatedAt(): string
     {
         return $this->updatedAt;
+    }
+    
+    public function getUserID(): string
+    {
+        return $this->userID;
     }
 
     public function jsonSerialize(): array

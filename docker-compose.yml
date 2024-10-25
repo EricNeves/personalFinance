@@ -30,6 +30,11 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./resources/sql:/docker-entrypoint-initdb.d
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - '6379:6379'
 
 volumes:
   db_data:

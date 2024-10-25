@@ -4,7 +4,6 @@ namespace App\Application\UseCases\Users\ChangePassword;
 
 use App\Application\DTOs\Users\ChangePasswordDTO;
 use App\Application\Shared\AuthenticatedUserInformation;
-use App\Domain\Entities\User;
 use App\Domain\Ports\Out\UserRepositoryPort;
 use App\Domain\Services\DateAndTime;
 use App\Domain\Services\PasswordHash;

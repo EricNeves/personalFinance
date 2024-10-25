@@ -9,32 +9,49 @@ use App\Infrasctructure\Exceptions\ApplicationErrors\UnauthorizedException;
 class Request
 {
     private UserContext $user;
-
-    /**
-     * @return string
-     */
+    
     public function getMethod(): string
     {
         return $_SERVER['REQUEST_METHOD'];
     }
-
-    /**
-     * @return array
-     */
+    
     public function body(): array
     {
-        $json = json_decode(file_get_contents('php://input'), true) ?? [];
+        $json = json_decode(file_get_contents('php://input'), true);
         
-        return match ($this->getMethod()) {
-            'GET' => $_GET, 'POST', 'PUT', 'DELETE' => $json, default  => [],
+        $data = match ($this->getMethod()) {
+            'GET' => $_GET,
+            'POST' => $json ?? $_POST,
+            'PUT', 'DELETE' => $json,
+            default => [],
         };
+        
+        return [...$data, ...$this->files()];
+    }
+    
+    private function files(): array
+    {
+        $files = [];
+        
+        foreach ($_FILES as $field_form_name => $file) {
+            if (is_array($file['name'])) {
+                foreach ($file['name'] as $key => $value) {
+                    $files[$field_form_name][] = [
+                        'name'     => $file['name'][$key],
+                        'type'     => $file['type'][$key],
+                        'tmp_name' => $file['tmp_name'][$key],
+                        'error'    => $file['error'][$key],
+                        'size'     => $file['size'][$key],
+                    ];
+                }
+            } else {
+                $files[$field_form_name] = $file;
+            }
+        }
+        
+        return $files;
     }
 
-    /**
-     * @param array $fields
-     * @return array
-     * @throws HttpBodyValidatorException
-     */
     public function validate(array $fields): array
     {
         foreach ($fields as $field => $rules) {
@@ -47,23 +64,39 @@ class Request
         
         return $this->body();
     }
-
-    /**
-     * @param string $field
-     * @param mixed $value
-     * @param string $rule
-     * @throws HttpBodyValidatorException
-     * @return void
-     */
+    
     private function validateRules(string $field, mixed $value, string $rule): void
     {
-        if ($rule === 'required' && empty(trim($value))) {
+        if ($rule === 'required' && is_string($value) && empty(trim($value))) {
             throw new HttpBodyValidatorException("The field {$field} is required");
         }
         
-        if ($rule === 'email' && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+        if ($rule === 'email' && is_string($value) && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
             throw new HttpBodyValidatorException("The field {$field} is not a valid email");
         }
+        
+        if ($rule === 'image' && (!is_array($value) || !$this->isImage($value))) {
+            throw new HttpBodyValidatorException("Upload failed: One or more files are not valid images (JPEG, PNG).");
+        }
+    }
+    
+    private function isImage(array $files): bool
+    {
+        foreach ($files as $file) {
+            $imageInfo = getimagesize($file['tmp_name']);
+            
+            if (!$imageInfo) {
+                return false;
+            }
+            
+            $validExtensions = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
+            
+            if (!in_array($imageInfo[2], $validExtensions)) {
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     public function bearerToken(): string
