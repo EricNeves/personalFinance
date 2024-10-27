@@ -1,6 +1,6 @@
 <?php
 
-use App\Adapters\In\Web\Controllers\Images\UploadImageController;
+use App\Adapters\In\Web\Controllers\images\UploadImageController;
 use App\Infrasctructure\Http\Route;
 use App\Adapters\In\Web\Controllers\Users\EditUserController;
 use App\Adapters\In\Web\Controllers\Overview\HomeController;

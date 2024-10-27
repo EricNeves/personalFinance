@@ -74,9 +74,12 @@ class Request
         if ($rule === 'email' && is_string($value) && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
             throw new HttpBodyValidatorException("The field {$field} is not a valid email");
         }
+        if ($rule === 'integer' && !is_integer(intval($value))) {
+            throw new HttpBodyValidatorException("The field {$field} must be an integer");
+        }
         
         if ($rule === 'image' && (!is_array($value) || !$this->isImage($value))) {
-            throw new HttpBodyValidatorException("Upload failed: One or more files are not valid images (JPEG, PNG).");
+            throw new HttpBodyValidatorException('Upload failed: One or more files are not valid images (JPEG, PNG).');
         }
     }
     
