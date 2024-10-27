@@ -2,25 +2,32 @@
 
 namespace App\Adapters\In\Jobs;
 
-use Redis;
+use App\Domain\Services\ImageQueue;
+use Nette\Utils\Image;
 
 class ImageProcessorJob
 {
-    public function __construct(private readonly Redis $redis)
+    public function __construct(private readonly ImageQueue $imageQueue)
     {
     }
-    
+
     public function run(string $key): void
     {
-        echo "[+] Worker started...\n";
-        
+        echo '[+] Worker started...'.PHP_EOL;
+
         while (true) {
-            $queueData = $this->redis->brPop($key, 10);
-            
+            $queueData = $this->imageQueue->dequeue($key);
+
             if ($queueData) {
-                print_r($queueData);
-                
-                echo "[+] Worker finished...\n";
+                $uploadDir = dirname(__DIR__, 4) . $queueData->getPathName();
+
+                $image = Image::fromFile($uploadDir);
+
+                $image->resize($queueData->getWidth(), $queueData->getHeight());
+
+                $image->save($uploadDir);
+
+                echo '[+] Worker finished...'.PHP_EOL;
             }
         }
     }

@@ -10,10 +10,11 @@ class Image implements JsonSerializable
     public function __construct(
         private readonly string $id,
         private readonly string $filename,
-        private readonly string $tmpName,
-        private readonly string $path,
+        private readonly string $pathName,
         private readonly string $mimeType,
         private readonly int $size,
+        private readonly int $width,
+        private readonly int $height,
         private readonly string $userID,
         private readonly ?string $createdAt = null,
         private readonly ?string $updatedAt = null
@@ -29,15 +30,10 @@ class Image implements JsonSerializable
     {
         return $this->filename;
     }
-    
-    public function getTmpName(): string
-    {
-        return $this->tmpName;
-    }
 
-    public function getPath(): string
+    public function getPathName(): string
     {
-        return $this->path;
+        return $this->pathName;
     }
 
     public function getMimeType(): string
@@ -50,12 +46,22 @@ class Image implements JsonSerializable
         return $this->size;
     }
 
-    public function getCreatedAt(): string
+    public function getWidth(): int
+    {
+        return $this->width;
+    }
+
+    public function getHeight(): int
+    {
+        return $this->height;
+    }
+
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): string
+    public function getUpdatedAt(): ?string
     {
         return $this->updatedAt;
     }

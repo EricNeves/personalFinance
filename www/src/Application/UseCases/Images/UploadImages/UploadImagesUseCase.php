@@ -4,6 +4,7 @@ namespace App\Application\UseCases\Images\UploadImages;
 
 use App\Application\DTOs\Image\UploadImageDTO;
 use App\Domain\Entities\Image;
+use App\Domain\Ports\Out\ImageStoragePort;
 use App\Domain\Services\DateAndTime;
 use App\Domain\Services\ImageQueue;
 use App\Domain\Services\Uuid;
@@ -14,7 +15,8 @@ class UploadImagesUseCase implements IUploadImagesUseCase
     (
         private readonly DateAndTime $dateAndTime,
         private readonly Uuid $uuid,
-        private readonly ImageQueue $imageQueue
+        private readonly ImageQueue $imageQueue,
+        private readonly ImageStoragePort $imageStoragePort
     ) {
     }
     
@@ -26,22 +28,26 @@ class UploadImagesUseCase implements IUploadImagesUseCase
             $uniqueFilename  = $this->uuid->generateV4();
             $uuid            = $this->uuid->generateV4();
             
-            $pathDir        = '/assets/images/';
+            $pathDir        = '/assets/uploads/';
+            $pathName       = $pathDir . $uniqueFilename . $image['name'];
             
-            $image = new Image(
+            $imageEntity = new Image(
                 $uuid,
                 $uniqueFilename,
-                $image['tmp_name'],
-                $pathDir,
+                $pathName,
                 $image['type'],
                 $image['size'],
+                $uploadImageDTO->getWidth(),
+                $uploadImageDTO->getHeight(),
                 $userID,
                 $currentDateTime
             );
+
+            $this->imageStoragePort->upload($pathName, $image['tmp_name']);
             
-            $this->imageQueue->dispatch('images', $image);
+            $this->imageQueue->dispatch('images', $imageEntity);
         }
         
-        return "Images sent for processing.";
+        return 'Images sent for processing.';
     }
 }
