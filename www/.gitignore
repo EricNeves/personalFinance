@@ -1,2 +1,5 @@
 vendor/
 .env
+assets/uploads/*.jpg
+assets/uploads/*.jpeg
+assets/uploads/*.png
