@@ -14,7 +14,7 @@ services:
     container_name: nginx_api
     build:
       context: ./www
-      dockerfile: ./nginx/Dockerfile
+      dockerfile: ./infra/nginx/Dockerfile
     ports:
       - '8080:8080'
     restart: always

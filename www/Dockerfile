@@ -25,10 +25,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 COPY . .
 
-COPY php.ini /usr/local/etc/php/conf.d/
+COPY infra/php/php.ini /usr/local/etc/php/conf.d/
 
 RUN composer install
 
 EXPOSE 9000
 
-CMD ["sh", "run.sh"]
+CMD ["sh", "infra/run.sh"]

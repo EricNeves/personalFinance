@@ -1,6 +1,6 @@
 <?php
 
-use App\Adapters\In\Web\Controllers\images\UploadImageController;
+use App\Adapters\In\Web\Controllers\Transactions\RegisterTransactionController;
 use App\Infrasctructure\Http\Route;
 use App\Adapters\In\Web\Controllers\Users\EditUserController;
 use App\Adapters\In\Web\Controllers\Overview\HomeController;
@@ -26,4 +26,4 @@ Route::put('/api/users/change-password', [ChangePasswordController::class, 'hand
 /**
  * Upload User Images
  */
-Route::post('/api/images/upload', [UploadImageController::class, 'handle'])->middlewares('auth');
+Route::post('/api/transactions/register', [RegisterTransactionController::class, 'handle'])->middlewares('auth');
