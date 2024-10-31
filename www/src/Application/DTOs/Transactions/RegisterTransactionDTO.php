@@ -7,7 +7,8 @@ class RegisterTransactionDTO
     public function __construct(
         private readonly float $amount,
         private readonly string $description,
-        private readonly string $transactionType
+        private readonly string $transactionType,
+        private readonly string $userId
     ) {
     }
     
@@ -24,5 +25,10 @@ class RegisterTransactionDTO
     public function getTransactionType(): string
     {
         return $this->transactionType;
+    }
+    
+    public function getUserId(): string
+    {
+        return $this->userId;
     }
 }

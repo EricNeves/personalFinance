@@ -13,6 +13,7 @@ class Transaction implements JsonSerializable
         private readonly string $description,
         private readonly TransactionType $transactionType,
         private readonly string $createdAt,
+        private readonly string $userId
     ) {
     }
     
@@ -39,6 +40,11 @@ class Transaction implements JsonSerializable
     public function getCreatedAt(): string
     {
         return $this->createdAt;
+    }
+    
+    public function getUserId(): string
+    {
+        return $this->userId;
     }
     
     public function jsonSerialize(): array

@@ -24,7 +24,8 @@ class RegisterTransactionController
         $registerTransactionDTO = new RegisterTransactionDTO(
             $fields['amount'],
             $fields['description'],
-            $fields['transaction_type']
+            $fields['transaction_type'],
+            $request->user()->id()
         );
         
         $response->json([

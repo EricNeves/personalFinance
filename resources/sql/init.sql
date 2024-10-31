@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS user_transactions (
+CREATE TABLE IF NOT EXISTS users_transactions (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     amount MONEY NOT NULL,
     description TEXT,
@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS user_transactions (
     created_at TIMESTAMP NOT NULL
 );
 
--- CREATE TABLE IF NOT EXISTS user_balance (
---     balance MONEY NOT NULL DEFAULT 0,
---     user_id UUID NOT NULL,
---     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
--- );
+CREATE TABLE IF NOT EXISTS users_balance (
+    balance MONEY NOT NULL DEFAULT 0,
+    user_id UUID NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
