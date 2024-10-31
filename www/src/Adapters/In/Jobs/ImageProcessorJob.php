@@ -20,12 +20,15 @@ class ImageProcessorJob
 
             if ($queueData) {
                 $uploadDir = dirname(__DIR__, 4) . $queueData->getPathName();
+                $targetDir = dirname(__DIR__, 4) . '/assets/uploads/' . $queueData->getPathName();
 
                 $image = Image::fromFile($uploadDir);
 
                 $image->resize($queueData->getWidth(), $queueData->getHeight());
 
-                $image->save($uploadDir);
+                $image->save($targetDir);
+                
+                unlink($uploadDir);
 
                 echo '[+] Worker finished...'.PHP_EOL;
             }

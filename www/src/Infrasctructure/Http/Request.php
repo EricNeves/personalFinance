@@ -19,37 +19,12 @@ class Request
     {
         $json = json_decode(file_get_contents('php://input'), true);
         
-        $data = match ($this->getMethod()) {
+        return match ($this->getMethod()) {
             'GET' => $_GET,
             'POST' => $json ?? $_POST,
             'PUT', 'DELETE' => $json,
             default => [],
         };
-        
-        return [...$data, ...$this->files()];
-    }
-    
-    private function files(): array
-    {
-        $files = [];
-        
-        foreach ($_FILES as $field_form_name => $file) {
-            if (is_array($file['name'])) {
-                foreach ($file['name'] as $key => $value) {
-                    $files[$field_form_name][] = [
-                        'name'     => $file['name'][$key],
-                        'type'     => $file['type'][$key],
-                        'tmp_name' => $file['tmp_name'][$key],
-                        'error'    => $file['error'][$key],
-                        'size'     => $file['size'][$key],
-                    ];
-                }
-            } else {
-                $files[$field_form_name] = $file;
-            }
-        }
-        
-        return $files;
     }
 
     public function validate(array $fields): array
@@ -74,32 +49,10 @@ class Request
         if ($rule === 'email' && is_string($value) && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
             throw new HttpBodyValidatorException("The field {$field} is not a valid email");
         }
-        if ($rule === 'integer' && !is_integer(intval($value))) {
-            throw new HttpBodyValidatorException("The field {$field} must be an integer");
-        }
         
-        if ($rule === 'image' && (!is_array($value) || !$this->isImage($value))) {
-            throw new HttpBodyValidatorException('Upload failed: One or more files are not valid images (JPEG, PNG).');
+        if ($rule === 'numeric' && !is_numeric($value)) {
+            throw new HttpBodyValidatorException("The field {$field} must be an number");
         }
-    }
-    
-    private function isImage(array $files): bool
-    {
-        foreach ($files as $file) {
-            $imageInfo = getimagesize($file['tmp_name']);
-            
-            if (!$imageInfo) {
-                return false;
-            }
-            
-            $validExtensions = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
-            
-            if (!in_array($imageInfo[2], $validExtensions)) {
-                return false;
-            }
-        }
-        
-        return true;
     }
 
     public function bearerToken(): string
