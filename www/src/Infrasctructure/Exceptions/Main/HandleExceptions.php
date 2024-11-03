@@ -2,6 +2,8 @@
 
 namespace App\Infrasctructure\Exceptions\Main;
 
+use App\Adapters\Out\Services\DatabaseTransactionImplementation;
+use App\Infrasctructure\Database\Postgres;
 use App\Infrasctructure\Exceptions\ApplicationErrors\NotFoundException;
 use App\Infrasctructure\Exceptions\ApplicationErrors\ServerErrorException;
 use App\Infrasctructure\Exceptions\ApplicationErrors\UnauthorizedException;
@@ -16,6 +18,12 @@ class HandleExceptions
     public static function handle(Throwable $exception): void
     {
         $response = new Response();
+
+        $databaseTransaction = new DatabaseTransactionImplementation(Postgres::connect());
+
+        if ($databaseTransaction->isTransactionActive()) {
+            $databaseTransaction->rollback();
+        }
 
         $class_exception = [
             HttpBodyValidatorException::class => ['message' => $exception->getMessage(), 'http_code' => 422],

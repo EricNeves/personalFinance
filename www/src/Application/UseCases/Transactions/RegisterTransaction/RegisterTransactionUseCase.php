@@ -3,10 +3,12 @@
 namespace App\Application\UseCases\Transactions\RegisterTransaction;
 
 use App\Application\DTOs\Transactions\RegisterTransactionDTO;
+use App\Application\Shared\TransactionTypeValidation;
 use App\Application\Shared\UpdateBalanceValue;
+use App\Domain\Entities\Balance;
 use App\Domain\Entities\Transaction;
-use App\Domain\Enums\TransactionType;
 use App\Domain\Ports\Out\TransactionRepositoryPort;
+use App\Domain\Services\DatabaseTransaction;
 use App\Domain\Services\DateAndTime;
 use App\Domain\Services\Uuid;
 use App\Infrasctructure\Exceptions\ApplicationErrors\BadRequestException;
@@ -15,7 +17,9 @@ class RegisterTransactionUseCase implements IRegisterTransactionUseCase
 {
     public function __construct(
         private readonly TransactionRepositoryPort $transactionRepositoryPort,
+        private readonly DatabaseTransaction $databaseTransaction,
         private readonly UpdateBalanceValue $updateBalanceValue,
+        private readonly TransactionTypeValidation $transactionTypeValidation,
         private readonly Uuid $uuid,
         private readonly DateAndTime $dateAndTime
     ) {
@@ -25,28 +29,32 @@ class RegisterTransactionUseCase implements IRegisterTransactionUseCase
     {
         $currentDate = $this->dateAndTime->currentDateTime();
         $uuid        = $this->uuid->generateV4();
-        
-        $transactionType = TransactionType::from($registerTransactionDTO->getTransactionType());
+
+        $this->databaseTransaction->beginTransaction();
+
+        $transactionType = $this->transactionTypeValidation->validate($registerTransactionDTO->getTransactionType());
         
         $transaction = new Transaction(
             $uuid,
             $registerTransactionDTO->getAmount(),
             $registerTransactionDTO->getDescription(),
-            $transactionType,
+            $transactionType->value,
             $currentDate,
             $registerTransactionDTO->getUserId()
         );
         
         $saveTransaction = $this->transactionRepositoryPort->save($transaction);
         
-        if ($saveTransaction) {
+        if (!$saveTransaction) {
             throw new BadRequestException('Sorry, something went wrong while saving the transaction.');
         }
-        
-        $balanceChange = $transactionType->isIncome() ? $transaction->getAmount() : -$transaction->getAmount();
-        
-        $this->updateBalanceValue->update($balanceChange, $transaction->getUserId());
-        
+
+        $amountValue = $transactionType->isIncome() ? $transaction->getAmount() : -$transaction->getAmount();
+
+        $this->updateBalanceValue->change($amountValue, $transaction);
+
+        $this->databaseTransaction->commit();
+
         return $transaction;
     }
 }
