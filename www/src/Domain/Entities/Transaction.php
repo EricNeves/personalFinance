@@ -11,7 +11,7 @@ class Transaction implements JsonSerializable
         private readonly string $id,
         private readonly float $amount,
         private readonly string $description,
-        private readonly TransactionType $transactionType,
+        private readonly string $transactionType,
         private readonly string $createdAt,
         private readonly string $userId
     ) {
@@ -32,7 +32,7 @@ class Transaction implements JsonSerializable
         return $this->description;
     }
     
-    public function getTransactionType(): TransactionType
+    public function getTransactionType(): string
     {
         return $this->transactionType;
     }
