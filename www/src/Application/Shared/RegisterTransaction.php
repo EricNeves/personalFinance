@@ -13,8 +13,7 @@ class RegisterTransaction
     public function __construct(
         private readonly TransactionRepositoryPort $transactionRepositoryPort,
         private readonly BalanceRepositoryPort     $balanceRepositoryPort
-    )
-    {
+    ) {
     }
 
     public function register(float $amount, Transaction $transaction): void

@@ -2,7 +2,6 @@
 
 namespace App\Adapters\Out\Persistence\Repositories;
 
-use App\Domain\Entities\Balance;
 use App\Domain\Entities\Transaction;
 use App\Domain\Ports\Out\TransactionRepositoryPort;
 use PDO;
