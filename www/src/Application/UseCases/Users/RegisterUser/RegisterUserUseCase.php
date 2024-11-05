@@ -3,6 +3,7 @@
 namespace App\Application\UseCases\Users\RegisterUser;
 
 use App\Application\DTOs\Users\RegisterUserDTO;
+use App\Application\Services\SaveInitialValueBalance;
 use App\Application\Shared\UserEmailAlreadyExists;
 use App\Domain\Entities\User;
 use App\Domain\Ports\Out\UserRepositoryPort;
@@ -16,6 +17,7 @@ class RegisterUserUseCase implements IRegisterUserUseCase
     public function __construct(
         private readonly UserRepositoryPort $userRepositoryPort,
         private readonly UserEmailAlreadyExists $userEmailAlreadyExists,
+        private readonly SaveInitialValueBalance $saveInitialValueBalance,
         private readonly Uuid $uuid,
         private readonly PasswordHash $passwordHash,
         private readonly DateAndTime $dataAndTime
@@ -37,6 +39,8 @@ class RegisterUserUseCase implements IRegisterUserUseCase
         if (!$save) {
             throw new RegisterUserException('Sorry, we could not register your account, try again later.');
         }
+
+        $this->saveInitialValueBalance->register(0, $user->getId());
         
         return $user;
     }

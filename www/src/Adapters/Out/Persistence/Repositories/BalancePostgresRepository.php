@@ -25,10 +25,22 @@ class BalancePostgresRepository implements BalanceRepositoryPort
         return false;
     }
 
-    public function hasBalance(Transaction $transaction): ?Balance
+    public function saveInitialBalance(float $amount, string $userId): ?Balance
+    {
+        $stmt = $this->pdo->prepare('INSERT INTO users_balance (balance, user_id) VALUES (?, ?)');
+        $stmt->execute([$amount, $userId]);
+
+        if ($stmt->rowCount() > 0) {
+           return new Balance($amount, $userId);
+        }
+
+        return null;
+    }
+
+    public function findByUserId(string $userId): ?Balance
     {
         $stmt = $this->pdo->prepare('SELECT balance::numeric AS balance, user_id FROM users_balance WHERE user_id = ?');
-        $stmt->execute([$transaction->getUserId()]);
+        $stmt->execute([$userId]);
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 

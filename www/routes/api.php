@@ -26,4 +26,4 @@ Route::put('/api/users/change-password', [ChangePasswordController::class, 'hand
 /**
  * Upload User Images
  */
-Route::post('/api/transactions/register', [RegisterTransactionController::class, 'handle'])->middlewares('auth');
+Route::post('/api/transactions/register', [RegisterTransactionController::class, 'handle'])->middlewares('auth', 'userExists');

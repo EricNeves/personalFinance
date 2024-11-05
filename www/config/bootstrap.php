@@ -42,7 +42,7 @@ function dispatch(array $routes, array $middlewares = []): void
             }
             
             $middlewaresKey = $route['middlewares'];
-            
+
             if (!empty($middlewaresKey)) {
                 handleMiddlewares($middlewaresKey, $middlewares, $route, $request, $response, $matches);
             } else {
@@ -69,6 +69,7 @@ function dispatch(array $routes, array $middlewares = []): void
  */
 function handleMiddlewares(array $middlewaresKey, array $middlewares, array $route, Request $request, Response $response, array $params): void
 {
+
     foreach ($middlewaresKey as $middlewareKey) {
         if (array_key_exists($middlewareKey, $middlewares)) {
             $middlewareClass = $middlewares[$middlewareKey];
