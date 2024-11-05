@@ -19,11 +19,15 @@ Route::get('/', [HomeController::class, 'handle']);
  */
 Route::post('/api/users/register', [RegisterUserController::class, 'handle']);
 Route::post('/api/users/authenticate', [AuthenticateUserController::class, 'handle']);
-Route::get('/api/users/fetch', [FetchUserController::class, 'handle'])->middlewares('auth');
-Route::put('/api/users/info/edit', [EditUserController::class, 'handle'])->middlewares('auth');
-Route::put('/api/users/change-password', [ChangePasswordController::class, 'handle'])->middlewares('auth');
+Route::get('/api/users/fetch', [FetchUserController::class, 'handle'])
+    ->middlewares('auth', 'userExists');
+Route::put('/api/users/info/edit', [EditUserController::class, 'handle'])
+    ->middlewares('auth', 'userExists');
+Route::put('/api/users/change-password', [ChangePasswordController::class, 'handle'])
+    ->middlewares('auth', 'userExists');
 
 /**
  * Upload User Images
  */
-Route::post('/api/transactions/register', [RegisterTransactionController::class, 'handle'])->middlewares('auth', 'userExists');
+Route::post('/api/transactions/register', [RegisterTransactionController::class, 'handle'])
+    ->middlewares('auth', 'userExists');
