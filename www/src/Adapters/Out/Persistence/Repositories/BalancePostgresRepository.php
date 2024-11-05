@@ -13,18 +13,6 @@ class BalancePostgresRepository implements BalanceRepositoryPort
     {
     }
 
-    public function save(Transaction $transaction): bool
-    {
-        $stmt = $this->pdo->prepare('INSERT INTO users_balance (balance, user_id) VALUES (? ,?)');
-        $stmt->execute([$transaction->getAmount(), $transaction->getUserId()]);
-
-        if ($stmt->rowCount() > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function saveInitialBalance(float $amount, string $userId): ?Balance
     {
         $stmt = $this->pdo->prepare('INSERT INTO users_balance (balance, user_id) VALUES (?, ?)');
@@ -54,9 +42,12 @@ class BalancePostgresRepository implements BalanceRepositoryPort
     public function updateBalance(float $amount, string $user_id): ?Balance
     {
         $stmt = $this->pdo->prepare('
-            UPDATE users_balance 
-            SET balance = ?::numeric 
-            WHERE user_id = ? 
+            UPDATE 
+                users_balance 
+            SET 
+                balance = ?::numeric 
+            WHERE 
+                user_id = ? 
             RETURNING balance::numeric AS balance, user_id
         ');
 

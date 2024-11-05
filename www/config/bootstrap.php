@@ -69,16 +69,22 @@ function dispatch(array $routes, array $middlewares = []): void
  */
 function handleMiddlewares(array $middlewaresKey, array $middlewares, array $route, Request $request, Response $response, array $params): void
 {
+    $middlewaresSuccessfully = true;
 
     foreach ($middlewaresKey as $middlewareKey) {
         if (array_key_exists($middlewareKey, $middlewares)) {
             $middlewareClass = $middlewares[$middlewareKey];
             $middleware = new $middlewareClass();
 
-            $middleware->handle($request, $response, function ($req) use ($route, $request, $response, $params) {
-                callController($route, $req, $response, $params);
+
+            $middleware->handle($request, $response, function () use (&$middlewaresSuccessfully) {
+                $middlewaresSuccessfully = !!headers_sent();
             });
         }
+    }
+
+    if (!$middlewaresSuccessfully) {
+        callController($route, $request, $response, $params);
     }
 }
 

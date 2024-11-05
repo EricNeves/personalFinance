@@ -5,7 +5,6 @@ namespace App\Application\UseCases\Transactions\RegisterTransaction;
 use App\Application\DTOs\Transactions\RegisterTransactionDTO;
 use App\Application\Shared\RegisterTransaction;
 use App\Application\Shared\TransactionTypeValidation;
-use App\Application\Shared\UpdateBalanceValue;
 use App\Domain\Entities\Transaction;
 use App\Domain\Services\DatabaseTransaction;
 use App\Domain\Services\DateAndTime;

@@ -32,7 +32,7 @@ class Request
         foreach ($fields as $field => $rules) {
             $value = $this->body()[$field] ?? '';
             
-            foreach (explode("|", $rules) as $rule) {
+            foreach (explode('|', $rules) as $rule) {
                 $this->validateRules($field, $value, $rule);
             }
         }
