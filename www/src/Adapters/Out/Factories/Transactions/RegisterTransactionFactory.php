@@ -7,6 +7,7 @@ use App\Adapters\Out\Persistence\Repositories\TransactionPostgresRepository;
 use App\Adapters\Out\Services\DatabaseTransactionImplementation;
 use App\Adapters\Out\Services\DateAndTimeImplementation;
 use App\Adapters\Out\Services\UuidGeneratorImplementation;
+use App\Application\Shared\RegisterTransaction;
 use App\Application\Shared\TransactionTypeValidation;
 use App\Application\Shared\UpdateBalanceValue;
 use App\Application\UseCases\Transactions\RegisterTransaction\RegisterTransactionUseCase;
@@ -19,15 +20,14 @@ class RegisterTransactionFactory
         $transactionPostgresRepository = new TransactionPostgresRepository(Postgres::connect());
         $databaseTransaction           = new DatabaseTransactionImplementation(Postgres::connect());
         $balancePostgresRepository     = new BalancePostgresRepository(Postgres::connect());
-        $updateBalanceValue            = new UpdateBalanceValue($balancePostgresRepository);
+        $registerTransaction           = new RegisterTransaction($transactionPostgresRepository, $balancePostgresRepository);
         $transactionTypeValidation     = new TransactionTypeValidation();
         $uuidGeneratorImplementation   = new UuidGeneratorImplementation();
         $dateAndTimeImplementation     = new DateAndTimeImplementation();
         
         return new RegisterTransactionUseCase(
-            $transactionPostgresRepository,
             $databaseTransaction,
-            $updateBalanceValue,
+            $registerTransaction,
             $transactionTypeValidation,
             $uuidGeneratorImplementation,
             $dateAndTimeImplementation,
