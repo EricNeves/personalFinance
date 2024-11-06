@@ -12,9 +12,9 @@ class SaveInitialValueBalance
     {
     }
 
-    public function register(float $amount, string $userId): void
+    public function register(Balance $balance): void
     {
-        $registerBalance = $this->balanceRepositoryPort->saveInitialBalance($amount, $userId);
+        $registerBalance = $this->balanceRepositoryPort->saveInitialBalance($balance);
 
         if (!$registerBalance) {
             throw new BadRequestException('Sorry, there was an error saving your initial balance.');

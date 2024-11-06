@@ -31,7 +31,7 @@ class Route
         return new self('PUT', $uri, $controllerWithAction);
     }
     
-    public function delete(string $uri, array $controllerWithAction = []): self
+    public static function delete(string $uri, array $controllerWithAction = []): self
     {
         return new self('DELETE', $uri, $controllerWithAction);
     }

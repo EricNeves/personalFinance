@@ -4,13 +4,14 @@ namespace App\Application\UseCases\Users\RegisterUser;
 
 use App\Application\DTOs\Users\RegisterUserDTO;
 use App\Application\Services\SaveInitialValueBalance;
-use App\Application\Shared\UserEmailAlreadyExists;
+use App\Application\Services\UserEmailAlreadyExists;
+use App\Domain\Entities\Balance;
 use App\Domain\Entities\User;
 use App\Domain\Ports\Out\UserRepositoryPort;
-use App\Domain\Services\PasswordHash;
-use App\Infrasctructure\Exceptions\ApplicationErrors\RegisterUserException;
-use App\Domain\Services\Uuid;
 use App\Domain\Services\DateAndTime;
+use App\Domain\Services\PasswordHash;
+use App\Domain\Services\Uuid;
+use App\Infrasctructure\Exceptions\ApplicationErrors\RegisterUserException;
 
 class RegisterUserUseCase implements IRegisterUserUseCase
 {
@@ -26,21 +27,24 @@ class RegisterUserUseCase implements IRegisterUserUseCase
     
     public function execute(RegisterUserDTO $registerUserDTO): User
     {
-        $password = $this->passwordHash->hash($registerUserDTO->getPassword());
-        $uuid     = $this->uuid->generateV4();
-        $dateTime = $this->dataAndTime->currentDateTime();
+        $password     = $this->passwordHash->hash($registerUserDTO->getPassword());
+        $userUuid     = $this->uuid->generateV4();
+        $balanceUuid  = $this->uuid->generateV4();
+        $dateTime     = $this->dataAndTime->currentDateTime();
         
         $this->userEmailAlreadyExists->verify($registerUserDTO->getEmail());
         
-        $user = new User($uuid, $registerUserDTO->getName(), $registerUserDTO->getEmail(), $password, $dateTime);
+        $user = new User($userUuid, $registerUserDTO->getName(), $registerUserDTO->getEmail(), $password, $dateTime);
         
         $save = $this->userRepositoryPort->save($user);
         
         if (!$save) {
             throw new RegisterUserException('Sorry, we could not register your account, try again later.');
         }
+        
+        $balance = new Balance($balanceUuid, 0, 0, 0, $user->getId());
 
-        $this->saveInitialValueBalance->register(0, $user->getId());
+        $this->saveInitialValueBalance->register($balance);
         
         return $user;
     }

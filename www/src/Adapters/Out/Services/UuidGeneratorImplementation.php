@@ -11,4 +11,9 @@ class UuidGeneratorImplementation implements Uuid
     {
         return UuidLib::uuid4()->toString();
     }
+    
+    public function isValid(string $uuid): bool
+    {
+        return UuidLib::isValid($uuid);
+    }
 }

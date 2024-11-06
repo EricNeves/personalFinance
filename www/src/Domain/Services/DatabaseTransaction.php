@@ -4,8 +4,8 @@ namespace App\Domain\Services;
 
 interface DatabaseTransaction
 {
-    public function beginTransaction();
-    public function isTransactionActive();
-    public function commit();
-    public function rollback();
+    public function beginTransaction(): void;
+    public function isTransactionActive(): bool;
+    public function commit(): void;
+    public function rollback(): void;
 }

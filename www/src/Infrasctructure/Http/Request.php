@@ -17,7 +17,7 @@ class Request
     
     public function body(): array
     {
-        $json = json_decode(file_get_contents('php://input'), true);
+        $json = json_decode(file_get_contents('php://input'), true) ?? [];
         
         return match ($this->getMethod()) {
             'GET' => $_GET,
