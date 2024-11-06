@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Shared;
+namespace App\Application\Services;
 
 use App\Domain\Ports\Out\UserRepositoryPort;
 use App\Infrasctructure\Exceptions\ApplicationErrors\EmailAlreadyExistsException;

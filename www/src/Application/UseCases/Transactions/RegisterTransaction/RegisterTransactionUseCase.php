@@ -3,7 +3,7 @@
 namespace App\Application\UseCases\Transactions\RegisterTransaction;
 
 use App\Application\DTOs\Transactions\RegisterTransactionDTO;
-use App\Application\Shared\RegisterTransaction;
+use App\Application\Services\RegisterTransaction;
 use App\Application\Shared\TransactionTypeValidation;
 use App\Domain\Entities\Transaction;
 use App\Domain\Services\DatabaseTransaction;
@@ -41,7 +41,7 @@ class RegisterTransactionUseCase implements IRegisterTransactionUseCase
 
         $amountValue = $transactionType->isIncome() ? $transaction->getAmount() : -$transaction->getAmount();
 
-        $this->registerTransaction->register($amountValue, $transaction);
+        $this->registerTransaction->register($amountValue, $transactionType, $transaction);
 
         $this->databaseTransaction->commit();
 

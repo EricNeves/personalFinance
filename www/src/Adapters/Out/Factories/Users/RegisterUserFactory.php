@@ -8,7 +8,7 @@ use App\Adapters\Out\Services\DateAndTimeImplementation;
 use App\Adapters\Out\Services\PasswordPasswordHashImplementation;
 use App\Adapters\Out\Services\UuidGeneratorImplementation;
 use App\Application\Services\SaveInitialValueBalance;
-use App\Application\Shared\UserEmailAlreadyExists;
+use App\Application\Services\UserEmailAlreadyExists;
 use App\Application\UseCases\Users\RegisterUser\RegisterUserUseCase;
 use App\Infrasctructure\Database\Postgres;
 

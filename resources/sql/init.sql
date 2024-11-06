@@ -23,7 +23,9 @@ CREATE TABLE IF NOT EXISTS users_transactions (
 
 CREATE TABLE IF NOT EXISTS users_balance (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    balance MONEY NOT NULL DEFAULT 0,
+    balance MONEY NOT NULL,
+    income MONEY NOT NULL,
+    expense MONEY NOT NULL,
     user_id UUID NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

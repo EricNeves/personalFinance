@@ -13,13 +13,24 @@ class BalancePostgresRepository implements BalanceRepositoryPort
     {
     }
 
-    public function saveInitialBalance(float $amount, string $userId): ?Balance
+    public function saveInitialBalance(Balance $balance): ?Balance
     {
-        $stmt = $this->pdo->prepare('INSERT INTO users_balance (balance, user_id) VALUES (?, ?)');
-        $stmt->execute([$amount, $userId]);
+        $stmt = $this->pdo->prepare('INSERT INTO users_balance (balance, income, expense, user_id) VALUES (?, ?, ?, ?)');
+        $stmt->execute([
+            $balance->getBalance(),
+            $balance->getIncome(),
+            $balance->getExpense(),
+            $balance->getUserId(),
+        ]);
 
         if ($stmt->rowCount() > 0) {
-           return new Balance($amount, $userId);
+           return new Balance(
+               $balance->getId(),
+               $balance->getBalance(),
+               $balance->getIncome(),
+               $balance->getExpense(),
+               $balance->getUserId()
+           );
         }
 
         return null;
@@ -27,36 +38,50 @@ class BalancePostgresRepository implements BalanceRepositoryPort
 
     public function findByUserId(string $userId): ?Balance
     {
-        $stmt = $this->pdo->prepare('SELECT balance::numeric AS balance, user_id FROM users_balance WHERE user_id = ?');
+        $stmt = $this->pdo->prepare('
+            SELECT
+                id, balance::numeric AS balance, income::numeric AS income, expense::numeric AS expense, user_id
+            FROM
+                users_balance
+            WHERE
+                user_id = ?
+        ');
         $stmt->execute([$userId]);
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($row) {
-            return new Balance((float) $row['balance'], $row['user_id']);
+            return new Balance($row['id'], $row['balance'], $row['income'], $row['expense'], $row['user_id']);
         }
 
         return null;
     }
 
-    public function updateBalance(float $amount, string $user_id): ?Balance
+    public function updateBalance(Balance $balance): ?Balance
     {
         $stmt = $this->pdo->prepare('
             UPDATE 
                 users_balance 
             SET 
-                balance = ?::numeric 
+                balance = ?::numeric,
+                income  = ?::numeric,
+                expense = ?::numeric
             WHERE 
-                user_id = ? 
-            RETURNING balance::numeric AS balance, user_id
+                user_id = ?
+            RETURNING id, balance::numeric AS balance, income::numeric AS income, expense::numeric AS expense, user_id
         ');
 
-        $stmt->execute([$amount, $user_id]);
+        $stmt->execute([
+            $balance->getBalance(),
+            $balance->getIncome(),
+            $balance->getExpense(),
+            $balance->getUserId(),
+        ]);
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($row) {
-            return new Balance((float) $row['balance'], $row['user_id']);
+            return new Balance($row['id'], $row['balance'], $row['income'], $row['expense'], $row['user_id']);
         }
 
         return null;

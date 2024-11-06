@@ -33,7 +33,7 @@ class DatabaseTransactionImplementation implements DatabaseTransaction
     {
         if ($this->transactionActive) {
             $this->transactionActive = false;
-            $this->pdo->commit();
+            $this->pdo->rollBack();
         }
     }
 
