@@ -1,0 +1,48 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="email" class="block text-900 font-medium mb-2">Name</label>
+    <input
+      id="name"
+      type="text"
+      placeholder="Name"
+      pInputText
+      autocomplete="off"
+      class="w-full mb-3"
+      formControlName="name"
+    />
+
+    <label for="email" class="block text-900 font-medium mb-2">Email</label>
+    <input
+      id="email"
+      type="text"
+      placeholder="Email address"
+      pInputText
+      autocomplete="off"
+      class="w-full mb-3"
+      formControlName="email"
+    />
+
+    <label for="password" class="block text-900 font-medium mb-2"
+    >Password</label
+    >
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      pInputText
+      class="w-full mb-3"
+      formControlName="password"
+    />
+
+    <button
+      pButton
+      pRipple
+      label="Register"
+      icon="pi pi-plus"
+      class="w-full"
+      [loading]="submitted"
+    ></button>
+  </div>
+</form>
+
+<p-toast position="bottom-right"></p-toast>

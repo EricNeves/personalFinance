@@ -1,3 +1,8 @@
+@import "primeng/resources/themes/md-dark-indigo/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
 body {
   background: #eeeeee;
 }
