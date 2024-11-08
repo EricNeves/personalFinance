@@ -35,6 +35,17 @@ services:
     image: redis:latest
     ports:
       - '6379:6379'
+  web:
+    container_name: 'web'
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - '4200:4200'
+    volumes:
+      - ./web:/app
+    depends_on:
+      - www
 
 volumes:
   db_data:
