@@ -16,7 +16,7 @@ use App\Adapters\In\Web\Controllers\Users\ChangePasswordController;
 Route::get('/', [HomeController::class, 'handle']);
 
 /**
- * User
+ * UserModel
  */
 Route::post('/api/users/register', [RegisterUserController::class, 'handle']);
 Route::post('/api/users/authenticate', [AuthenticateUserController::class, 'handle']);
