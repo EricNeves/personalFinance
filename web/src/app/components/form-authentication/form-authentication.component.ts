@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 
+import { User } from "@models/user.model";
+import { UserService } from "@services/user.service";
+import {StorageService} from "@services/storage.service";
+
 @Component({
   selector: 'app-form-authentication',
   standalone: true,
@@ -32,9 +36,11 @@ export class FormAuthenticationComponent {
   loginForm!: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private messageService: MessageService,
-    private router: Router,
+    private readonly fb: FormBuilder,
+    private readonly messageService: MessageService,
+    private readonly userService: UserService,
+    private readonly router: Router,
+    private readonly storageService: StorageService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -54,9 +60,26 @@ export class FormAuthenticationComponent {
       return;
     }
 
-    const user = this.loginForm.value;
+    const user: Partial<User> = this.loginForm.value;
 
-    console.log(user)
+    this.userService.authenticate(user).subscribe({
+      next: (response) => {
+        this.storageService.setData('jwt', response.data)
+
+        this.router.navigate(['/panel']);
+
+        this.submitted = false
+      },
+      error: (error: any) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Warning',
+          detail: `${error.error.message}`,
+        })
+
+        this.submitted = false
+      }
+    })
   }
 
   getErrorMessage(controlName: string): void {

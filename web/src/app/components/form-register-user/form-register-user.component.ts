@@ -11,6 +11,9 @@ import { ToastModule } from 'primeng/toast';
 
 import { MessageService } from 'primeng/api';
 
+import { User } from "@models/user.model";
+import { UserService } from "@services/user.service";
+
 @Component({
   selector: 'app-form-register-user',
   standalone: true,
@@ -28,11 +31,13 @@ import { MessageService } from 'primeng/api';
 })
 export class FormRegisterUserComponent {
   submitted: boolean = false;
+
   loginForm!: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private messageService: MessageService
+    private readonly fb: FormBuilder,
+    private readonly messageService: MessageService,
+    private readonly userService: UserService
   ) {
     this.loginForm = this.fb.group({
       name: ['', Validators.required],
@@ -53,9 +58,29 @@ export class FormRegisterUserComponent {
       return;
     }
 
-    const user = this.loginForm.value;
+    const user: User = this.loginForm.value;
 
-    console.log(user)
+    this.userService.register(user).subscribe({
+      next: (response) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `User registered successfully.`,
+        });
+
+        this.submitted = false;
+        this.loginForm.reset()
+      },
+      error: (error: any) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Warning',
+          detail: `${error.error.message}`,
+        });
+
+        this.submitted = false
+      }
+    })
   }
 
   getErrorMessage(controlName: string): void {
