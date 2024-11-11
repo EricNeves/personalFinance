@@ -24,8 +24,13 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@pages/*": ["src/app/pages/*"],
-      "@components/*": ["src/app/components/*"]
+      "@pages/*":        ["src/app/pages/*"],
+      "@components/*":   ["src/app/components/*"],
+      "@models/*":       ["src/app/models/*"],
+      "@services/*":     ["src/app/services/*"],
+      "@environments/*": ["src/environments/*"],
+      "@guards/*":       ["src/app/guards/*"],
+      "@interceptors/*": ["src/app/interceptors/*"]
     }
   },
   "angularCompilerOptions": {
