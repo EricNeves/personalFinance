@@ -18,3 +18,52 @@ body {
   width: 40px;
   height: 32px;
 }
+
+p-card {
+  width: 100%;
+}
+
+.p-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.money {
+  font-size: 1.4rem;
+  font-weight: bolder;
+}
+
+.card-total-balance > div {
+  background: #5C9DEB;
+  background: -webkit-radial-gradient(circle, #5C9DEB 0%, #7388E3 100%);
+  background: radial-gradient(circle, #5C9DEB 0%, #7388E3 100%);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.card-total-income > div {
+  background: #4DBD85;
+  background: -webkit-radial-gradient(circle, #4DBD85 0%, #3BA76B 100%);
+  background: radial-gradient(circle, #4DBD85 0%, #3BA76B 100%);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.card-total-expense > div {
+  background: #FF8178;
+  background: -webkit-radial-gradient(circle, #FF8178 0%, #E75653 100%);
+  background: radial-gradient(circle, #FF8178 0%, #E75653 100%);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+@media (max-width: 850px) {
+  .p-card-title {
+    font-size: 1rem;
+  }
+
+  .money {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+}
