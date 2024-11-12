@@ -1,3 +1,17 @@
-<div class="card">
-  <p-menubar [model]="menu" />
-</div>
+<section class="container menubar">
+  <div class="menubar-bar-profile">
+    <aside>
+      <p-avatar
+        icon="pi pi-user"
+        styleClass="mr-2" size="normal"
+      />
+      <p>Hello, Eric Neves</p>
+    </aside>
+
+    <div class="menuBtn">
+      <p-menu #menu [model]="menuItems" [popup]="true" />
+      <p-button size="small" (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
+    </div>
+  </div>
+
+</section>

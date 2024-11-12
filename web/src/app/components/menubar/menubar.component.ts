@@ -1,65 +1,73 @@
 import {Component, OnInit} from '@angular/core';
 
-import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
-import {StorageService} from "@services/storage.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+
+import { AvatarModule } from 'primeng/avatar';
+import { MenuItem } from "primeng/api";
+import { MenuModule } from 'primeng/menu';
+import { ButtonModule } from "primeng/button";
+import { StorageService } from "@services/storage.service";
 
 @Component({
   selector: 'app-menubar',
   standalone: true,
   imports: [
-    MenubarModule
+    RouterLink,
+    AvatarModule,
+    MenuModule,
+    ButtonModule
   ],
   templateUrl: './menubar.component.html',
   styleUrl: './menubar.component.css'
 })
 export class MenubarComponent implements OnInit {
-  menu: MenuItem[] | undefined;
+  menuItems: MenuItem[] | undefined;
 
   ngOnInit() {
-    this.menu = [
+    this.menuItems = [
       {
-        label: 'Export',
-        icon: 'pi pi-file-export',
+        label: 'Profile',
         items: [
           {
-            label: 'Export as PDF',
-            icon: 'pi pi-file-pdf'
+            label: 'Change username',
+            icon: 'pi pi-user-edit'
           },
           {
-            label: 'Export as CSV',
-            icon: 'pi pi-file-o'
+            label: 'Change Password',
+            icon: 'pi pi-shield'
           }
         ]
       },
       {
-        label: 'User - Eric Neves',
-        icon: 'pi pi-user',
+        label: 'Data',
         items: [
           {
-            label: 'Change Username',
-            icon: 'pi pi-sign-out'
-          },
+            label: 'Export to PDF',
+            icon: 'pi pi-file-pdf'
+          }
+        ]
+      },
+      {
+        label: 'Sign Out',
+        items: [
           {
-            label: 'Change Password',
-            icon: 'pi pi-lock'
-          },
-          {
-            label: 'Sign Out',
-            icon: 'pi pi-pen-to-square',
+            label: 'Logout',
+            icon: 'pi pi-sign-out',
             command: () => this.logout()
           }
         ]
       }
-    ]
+    ];
   }
 
-  constructor(private readonly storageService: StorageService, private readonly router: Router) {}
+  constructor(
+    private readonly storageService: StorageService,
+    private readonly router: Router
+  ) {
+  }
 
   logout(): void {
     this.storageService.removeData('jwt')
-
     this.router.navigate(['/'])
   }
 }

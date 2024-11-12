@@ -6,3 +6,15 @@
 body {
   background: #f5f5f5;
 }
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+.menubar .p-button {
+  width: 40px;
+  height: 32px;
+}

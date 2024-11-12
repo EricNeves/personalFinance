@@ -1,0 +1,15 @@
+.menubar-bar-profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menubar-bar-profile > aside {
+  display: flex;
+  align-items: center;
+}
+
+.menuBtn {
+  margin-left: .5rem;
+}
+
