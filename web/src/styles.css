@@ -57,6 +57,12 @@ p-card {
   color: white;
 }
 
+.card-total-income > div:hover,
+.card-total-expense > div:hover,
+.card-total-balance > div:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
 @media (max-width: 850px) {
   .p-card-title {
     font-size: 1rem;

@@ -5,3 +5,16 @@
   <app-card-total-income></app-card-total-income>
   <app-card-total-expense></app-card-total-expense>
 </section>
+
+<section class="container form-transaction">
+  <p-button
+    severity="success"
+    iconPos="right"
+    size="small"
+    icon="pi pi-plus-circle"
+    label="Add Transaction"
+    (onClick)="showModalAddTransaction()"
+  />
+
+  <app-modal-add-transaction [visible]="visibleModalAddTransaction" (changeVisible)="visibleModalAddTransaction = $event"></app-modal-add-transaction>
+</section>
