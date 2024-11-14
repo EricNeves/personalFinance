@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { DialogModule } from 'primeng/dialog';
@@ -9,57 +9,48 @@ import { ToastModule } from "primeng/toast";
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { TransactionBody } from "@models/transaction.model";
-import { TransactionService } from "@services/transaction.service";
-import { Balance } from "@models/balance.model";
+import {UserService} from "@services/user.service";
 
 @Component({
-  selector: 'app-modal-add-transaction',
+  selector: 'app-modal-change-password',
   standalone: true,
   imports: [
     DialogModule,
     ButtonModule,
+    ToastModule,
     InputGroupModule,
     InputGroupAddonModule,
     SelectButtonModule,
-    ReactiveFormsModule,
-    ToastModule
+    ReactiveFormsModule
   ],
-  providers: [MessageService],
-  templateUrl: './modal-add-transaction.component.html',
-  styleUrl: './modal-add-transaction.component.css'
+  templateUrl: './modal-change-password.component.html',
+  styleUrl: './modal-change-password.component.css',
+  providers: [MessageService]
 })
-export class ModalAddTransactionComponent {
-  @Input() visible: boolean = false;
+export class ModalChangePasswordComponent {
+  @Input()  visible: boolean = false;
   @Output() changeVisible: EventEmitter<boolean> = new  EventEmitter();
-  @Output() registeredTransaction: EventEmitter<Balance> = new EventEmitter();
 
   submitted: boolean = false;
 
-  transactionForm!: FormGroup;
-
-  transactionOptions: any[] = [
-    { label: 'Income',  value: 'income' },
-    { label: 'Expense', value: 'expense' }
-  ];
+  changePasswordForm!: FormGroup;
 
   constructor(
-    private readonly formBuilder: FormBuilder,
     private readonly messageService: MessageService,
-    private readonly transactionService: TransactionService
+    private readonly userService: UserService,
+    private readonly fb: FormBuilder
   ) {
-    this.transactionForm = this.formBuilder.group({
-      amount: ['', Validators.required],
-      description: ['', Validators.required],
-      transaction_type: ['', Validators.required]
+    this.changePasswordForm = this.fb.group({
+      old_password: ['', Validators.required],
+      new_password: ['', Validators.required],
     })
   }
 
   onSubmit(): void {
     this.submitted = true;
 
-    if (this.transactionForm.invalid) {
-      Object.keys(this.transactionForm.controls).map((key) => {
+    if (this.changePasswordForm.invalid) {
+      Object.keys(this.changePasswordForm.controls).map((key) => {
         this.getErrorMessage(key);
       });
 
@@ -67,36 +58,35 @@ export class ModalAddTransactionComponent {
       return;
     }
 
-    const transactionBody: TransactionBody = this.transactionForm.value
+    const { old_password, new_password } = this.changePasswordForm.value
 
-    this.transactionService.register(transactionBody).subscribe({
+    this.userService.editPassword(old_password, new_password).subscribe({
       next: (response) => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: `Transaction registered successfully`,
+          detail: response.data,
         });
 
-        this.registeredTransaction.emit(response.data)
-
-        this.transactionForm.reset()
-        this.submitted = false;
+        this.submitted = false
         this.changeVisible.emit(false)
+        this.changePasswordForm.reset()
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'warn',
+          severity: 'error',
           summary: 'Warning',
           detail: error.error.message,
         });
 
+        this.changePasswordForm.reset()
         this.submitted = false
       }
     })
   }
 
   getErrorMessage(controlName: string): void {
-    const control = this.transactionForm.get(controlName);
+    const control = this.changePasswordForm.get(controlName);
 
     if (control?.hasError('required')) {
       this.messageService.add({
@@ -108,7 +98,7 @@ export class ModalAddTransactionComponent {
   }
 
   changeVisibleModal(event: boolean): void {
-    this.transactionForm.reset()
+    this.changePasswordForm.reset()
     this.changeVisible.emit(event)
   }
 }

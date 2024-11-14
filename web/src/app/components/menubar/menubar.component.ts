@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-import {Router, RouterLink} from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 
 import { AvatarModule } from 'primeng/avatar';
 import { MenuItem } from "primeng/api";
@@ -28,9 +28,16 @@ import {User} from "@models/user.model";
   providers: [MessageService]
 })
 export class MenubarComponent implements OnInit {
+  @Output() openModalChangeUsername: EventEmitter<boolean> = new EventEmitter();
+  @Output() openModalChangePassword: EventEmitter<boolean> = new EventEmitter();
+  @Output() userInfo: EventEmitter<User> = new EventEmitter();
+
   menuItems: MenuItem[] | undefined;
 
-  user!: User;
+  @Input() user: User = {
+    name: '',
+    email: '',
+  };
 
   ngOnInit() {
     this.menuItems = [
@@ -39,11 +46,13 @@ export class MenubarComponent implements OnInit {
         items: [
           {
             label: 'Change username',
-            icon: 'pi pi-user-edit'
+            icon: 'pi pi-user-edit',
+            command: () => this.openModalChangeUsername.emit(true)
           },
           {
             label: 'Change Password',
-            icon: 'pi pi-shield'
+            icon: 'pi pi-shield',
+            command: () => this.openModalChangePassword.emit(true)
           }
         ]
       },
@@ -71,6 +80,7 @@ export class MenubarComponent implements OnInit {
     this.userService.user().subscribe({
       next: (response) => {
         this.user = response.data
+        this.userInfo.emit(response.data)
       },
       error: (error: any) => {
         this.messageService.add({

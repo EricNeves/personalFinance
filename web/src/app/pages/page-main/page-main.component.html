@@ -1,4 +1,9 @@
-<app-menubar></app-menubar>
+<app-menubar
+  (userInfo)="user = $event"
+  (openModalChangeUsername)="showModalChangeUsername($event)"
+  (openModalChangePassword)="showModalChangePassword($event)"
+  [user]="user"
+></app-menubar>
 
 <section class="container cards">
   <app-card-total-balance [balanceValue]="balance.balance"></app-card-total-balance>
@@ -21,4 +26,16 @@
     (changeVisible)="visibleModalAddTransaction = $event"
     (registeredTransaction)="registeredTransaction($event)"
   ></app-modal-add-transaction>
+
+  <app-modal-change-username
+    [visible]="visibleModalChangeUsername"
+    (changeVisible)="visibleModalChangeUsername = $event"
+    (userInfo)="changeUserInfo($event)"
+    [username]="user.name"
+  ></app-modal-change-username>
+
+  <app-modal-change-password
+    [visible]="visibleModalChangePassword"
+    (changeVisible)="visibleModalChangePassword = $event"
+  ></app-modal-change-password>
 </section>

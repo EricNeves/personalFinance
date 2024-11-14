@@ -21,4 +21,12 @@ export class UserService {
   user(): Observable<{ data: User }> {
     return this.httpClient.get<{ data: User }>(`${environment.apiBaseUrl}/users/fetch`)
   }
+
+  editUsername(name: string): Observable<{ data: User }> {
+    return this.httpClient.put<{ data: User }>(`${environment.apiBaseUrl}/users/info/edit`, { name })
+  }
+
+  editPassword(old_password: string, new_password: string): Observable<{ data: string }> {
+    return this.httpClient.put<{ data: string }>(`${environment.apiBaseUrl}/users/change-password`, { old_password, new_password })
+  }
 }

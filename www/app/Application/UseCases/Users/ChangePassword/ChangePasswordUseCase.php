@@ -25,7 +25,7 @@ class ChangePasswordUseCase implements IChangePasswordUseCase
         $user = $this->authenticatedUserInformation->fetch($changePasswordDTO->getId());
         
         if (!$this->passwordHash->verify($changePasswordDTO->getOldPassword(), $user->getPassword())) {
-            throw new UnauthorizedException('Old password does not match.');
+            throw new BadRequestException('Old password does not match.');
         }
 
         $currentDateTime = $this->dateAndTime->currentDateTime();

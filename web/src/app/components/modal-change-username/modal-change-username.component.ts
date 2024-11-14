@@ -9,57 +9,58 @@ import { ToastModule } from "primeng/toast";
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { TransactionBody } from "@models/transaction.model";
-import { TransactionService } from "@services/transaction.service";
-import { Balance } from "@models/balance.model";
+import {UserService} from "@services/user.service";
+import {User} from "@models/user.model";
 
 @Component({
-  selector: 'app-modal-add-transaction',
+  selector: 'app-modal-change-username',
   standalone: true,
   imports: [
     DialogModule,
     ButtonModule,
+    ToastModule,
     InputGroupModule,
     InputGroupAddonModule,
     SelectButtonModule,
-    ReactiveFormsModule,
-    ToastModule
+    ReactiveFormsModule
   ],
-  providers: [MessageService],
-  templateUrl: './modal-add-transaction.component.html',
-  styleUrl: './modal-add-transaction.component.css'
+  templateUrl: './modal-change-username.component.html',
+  styleUrl: './modal-change-username.component.css',
+  providers: [MessageService]
 })
-export class ModalAddTransactionComponent {
-  @Input() visible: boolean = false;
+export class ModalChangeUsernameComponent implements OnChanges {
+  @Input()  visible: boolean = false;
+  @Input() username: string = '';
   @Output() changeVisible: EventEmitter<boolean> = new  EventEmitter();
-  @Output() registeredTransaction: EventEmitter<Balance> = new EventEmitter();
+  @Output() userInfo: EventEmitter<User> = new EventEmitter();
 
   submitted: boolean = false;
 
-  transactionForm!: FormGroup;
-
-  transactionOptions: any[] = [
-    { label: 'Income',  value: 'income' },
-    { label: 'Expense', value: 'expense' }
-  ];
+  changeUsernameForm!: FormGroup;
 
   constructor(
-    private readonly formBuilder: FormBuilder,
     private readonly messageService: MessageService,
-    private readonly transactionService: TransactionService
+    private readonly formBuilder: FormBuilder,
+    private readonly userService: UserService
   ) {
-    this.transactionForm = this.formBuilder.group({
-      amount: ['', Validators.required],
-      description: ['', Validators.required],
-      transaction_type: ['', Validators.required]
+    this.changeUsernameForm = this.formBuilder.group({
+      name: ['', Validators.required],
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['username']) {
+      this.changeUsernameForm.patchValue({
+        name: changes['username'].currentValue
+      })
+    }
   }
 
   onSubmit(): void {
     this.submitted = true;
 
-    if (this.transactionForm.invalid) {
-      Object.keys(this.transactionForm.controls).map((key) => {
+    if (this.changeUsernameForm.invalid) {
+      Object.keys(this.changeUsernameForm.controls).map((key) => {
         this.getErrorMessage(key);
       });
 
@@ -67,25 +68,18 @@ export class ModalAddTransactionComponent {
       return;
     }
 
-    const transactionBody: TransactionBody = this.transactionForm.value
+    const { name } = this.changeUsernameForm.value
 
-    this.transactionService.register(transactionBody).subscribe({
+    this.userService.editUsername(name).subscribe({
       next: (response) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: `Transaction registered successfully`,
-        });
+        this.userInfo.emit(response.data)
 
-        this.registeredTransaction.emit(response.data)
-
-        this.transactionForm.reset()
         this.submitted = false;
         this.changeVisible.emit(false)
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'warn',
+          severity: 'error',
           summary: 'Warning',
           detail: error.error.message,
         });
@@ -96,7 +90,7 @@ export class ModalAddTransactionComponent {
   }
 
   getErrorMessage(controlName: string): void {
-    const control = this.transactionForm.get(controlName);
+    const control = this.changeUsernameForm.get(controlName);
 
     if (control?.hasError('required')) {
       this.messageService.add({
@@ -108,7 +102,6 @@ export class ModalAddTransactionComponent {
   }
 
   changeVisibleModal(event: boolean): void {
-    this.transactionForm.reset()
     this.changeVisible.emit(event)
   }
 }
