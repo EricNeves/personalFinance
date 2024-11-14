@@ -30,8 +30,9 @@
       "@services/*":     ["src/app/services/*"],
       "@environments/*": ["src/environments/*"],
       "@guards/*":       ["src/app/guards/*"],
-      "@interceptors/*": ["src/app/interceptors/*"]
-    }
+      "@interceptors/*": ["src/app/interceptors/*"],
+      "@utils/*":        ["src/app/utils/*"]
+,    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

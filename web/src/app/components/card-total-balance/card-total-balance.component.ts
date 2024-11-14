@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 
 import { CardModule } from 'primeng/card';
+import { convertMoneyToReal } from "@utils/converter";
 
 @Component({
   selector: 'app-card-total-balance',
@@ -11,6 +12,14 @@ import { CardModule } from 'primeng/card';
   templateUrl: './card-total-balance.component.html',
   styleUrl: './card-total-balance.component.css'
 })
-export class CardTotalBalanceComponent {
+export class CardTotalBalanceComponent implements OnChanges {
+  @Input() balanceValue: number = 0;
 
+  balanceValueBRL: string = ''
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['balanceValue']) {
+      this.balanceValueBRL = convertMoneyToReal(this.balanceValue)
+    }
+  }
 }

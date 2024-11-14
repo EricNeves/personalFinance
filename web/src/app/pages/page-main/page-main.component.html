@@ -1,9 +1,9 @@
 <app-menubar></app-menubar>
 
 <section class="container cards">
-  <app-card-total-balance></app-card-total-balance>
-  <app-card-total-income></app-card-total-income>
-  <app-card-total-expense></app-card-total-expense>
+  <app-card-total-balance [balanceValue]="balance.balance"></app-card-total-balance>
+  <app-card-total-income  [incomeValue]="balance.income"></app-card-total-income>
+  <app-card-total-expense [expenseValue]="balance.expense"></app-card-total-expense>
 </section>
 
 <section class="container form-transaction">
@@ -16,5 +16,9 @@
     (onClick)="showModalAddTransaction()"
   />
 
-  <app-modal-add-transaction [visible]="visibleModalAddTransaction" (changeVisible)="visibleModalAddTransaction = $event"></app-modal-add-transaction>
+  <app-modal-add-transaction
+    [visible]="visibleModalAddTransaction"
+    (changeVisible)="visibleModalAddTransaction = $event"
+    (registeredTransaction)="registeredTransaction($event)"
+  ></app-modal-add-transaction>
 </section>

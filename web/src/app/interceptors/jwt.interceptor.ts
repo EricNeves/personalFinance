@@ -10,7 +10,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
   const jwt = storageService.getData('jwt')
 
-  if (!jwt) {
+  if (!jwt && !req.url.includes('users/register')) {
     storageService.removeData('jwt')
 
     router.navigate(['/'])
@@ -24,8 +24,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(reqCloned).pipe(
     catchError(function (error: any) {
-      console.log(error)
-      if (error.status === 401) {
+      if (error.status === 401 && !reqCloned.url.includes('users/register')) {
         storageService.removeData('jwt')
 
         router.navigate(['/'])

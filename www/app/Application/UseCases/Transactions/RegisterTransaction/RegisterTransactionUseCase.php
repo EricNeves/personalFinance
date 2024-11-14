@@ -5,7 +5,9 @@ namespace App\Application\UseCases\Transactions\RegisterTransaction;
 use App\Application\DTOs\Transactions\RegisterTransactionDTO;
 use App\Application\Services\RegisterTransaction;
 use App\Application\Shared\TransactionTypeValidation;
+use App\Domain\Entities\Balance;
 use App\Domain\Entities\Transaction;
+use App\Domain\Ports\Out\BalanceRepositoryPort;
 use App\Domain\Services\DatabaseTransaction;
 use App\Domain\Services\DateAndTime;
 use App\Domain\Services\Uuid;
@@ -16,12 +18,13 @@ class RegisterTransactionUseCase implements IRegisterTransactionUseCase
         private readonly DatabaseTransaction $databaseTransaction,
         private readonly RegisterTransaction $registerTransaction,
         private readonly TransactionTypeValidation $transactionTypeValidation,
+        private readonly BalanceRepositoryPort $balanceRepositoryPort,
         private readonly Uuid $uuid,
         private readonly DateAndTime $dateAndTime
     ) {
     }
 
-    public function execute(RegisterTransactionDTO $registerTransactionDTO): Transaction
+    public function execute(RegisterTransactionDTO $registerTransactionDTO): Balance
     {
         $currentDate = $this->dateAndTime->currentDateTime();
         $uuid        = $this->uuid->generateV4();
@@ -45,6 +48,6 @@ class RegisterTransactionUseCase implements IRegisterTransactionUseCase
 
         $this->databaseTransaction->commit();
 
-        return $transaction;
+        return $this->balanceRepositoryPort->findByUserId($registerTransactionDTO->getUserId());
     }
 }

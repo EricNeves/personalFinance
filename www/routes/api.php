@@ -9,6 +9,7 @@ use App\Adapters\In\Web\Controllers\Users\RegisterUserController;
 use App\Adapters\In\Web\Controllers\Users\AuthenticateUserController;
 use App\Adapters\In\Web\Controllers\Users\FetchUserController;
 use App\Adapters\In\Web\Controllers\Users\ChangePasswordController;
+use App\Adapters\In\Web\Controllers\Balance\ShowBalanceController;
 
 /**
  * Overview
@@ -25,6 +26,12 @@ Route::get('/api/users/fetch', [FetchUserController::class, 'handle'])
 Route::put('/api/users/info/edit', [EditUserController::class, 'handle'])
     ->middlewares('auth', 'userExists');
 Route::put('/api/users/change-password', [ChangePasswordController::class, 'handle'])
+    ->middlewares('auth', 'userExists');
+
+/**
+ * Balance
+ */
+Route::get('/api/users/balance/fetch', [ShowBalanceController::class, 'handle'])
     ->middlewares('auth', 'userExists');
 
 /**

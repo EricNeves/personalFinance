@@ -35,6 +35,7 @@ class RegisterTransactionFactory
             $databaseTransaction,
             $registerTransaction,
             $transactionTypeValidation,
+            $balancePostgresRepository,
             $uuidGeneratorImplementation,
             $dateAndTimeImplementation,
         );
