@@ -7,6 +7,11 @@ import { MenuItem } from "primeng/api";
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from "primeng/button";
 import { StorageService } from "@services/storage.service";
+import { UserService } from "@services/user.service";
+
+import { MessageService } from "primeng/api";
+import {ToastModule} from "primeng/toast";
+import {User} from "@models/user.model";
 
 @Component({
   selector: 'app-menubar',
@@ -15,13 +20,17 @@ import { StorageService } from "@services/storage.service";
     RouterLink,
     AvatarModule,
     MenuModule,
-    ButtonModule
+    ButtonModule,
+    ToastModule,
   ],
   templateUrl: './menubar.component.html',
-  styleUrl: './menubar.component.css'
+  styleUrl: './menubar.component.css',
+  providers: [MessageService]
 })
 export class MenubarComponent implements OnInit {
   menuItems: MenuItem[] | undefined;
+
+  user!: User;
 
   ngOnInit() {
     this.menuItems = [
@@ -58,11 +67,28 @@ export class MenubarComponent implements OnInit {
         ]
       }
     ];
+
+    this.userService.user().subscribe({
+      next: (response) => {
+        this.user = response.data
+      },
+      error: (error: any) => {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Warning',
+          detail: error.error.message,
+        })
+
+        this.logout()
+      }
+    })
   }
 
   constructor(
     private readonly storageService: StorageService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly messageService: MessageService
   ) {
   }
 
