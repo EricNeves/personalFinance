@@ -7,5 +7,5 @@ use App\Domain\Entities\Balance;
 
 interface IRemoveTransactionUseCase
 {
-    public function execute(RemoveTransactionDTO $removeTransactionDTO): Balance;
+    public function execute(RemoveTransactionDTO $removeTransactionDTO): array;
 }

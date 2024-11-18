@@ -1,0 +1,9 @@
+.table-transactions-logs {
+  margin-top: 2rem;
+  padding: 0;
+}
+
+.paginator {
+  width: 100%;
+  text-align: right;
+}

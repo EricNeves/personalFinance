@@ -23,8 +23,8 @@ class RegisterTransactionUseCase implements IRegisterTransactionUseCase
         private readonly DateAndTime $dateAndTime
     ) {
     }
-
-    public function execute(RegisterTransactionDTO $registerTransactionDTO): Balance
+    
+    public function execute(RegisterTransactionDTO $registerTransactionDTO): array
     {
         $currentDate = $this->dateAndTime->currentDateTime();
         $uuid        = $this->uuid->generateV4();
@@ -48,6 +48,9 @@ class RegisterTransactionUseCase implements IRegisterTransactionUseCase
 
         $this->databaseTransaction->commit();
 
-        return $this->balanceRepositoryPort->findByUserId($registerTransactionDTO->getUserId());
+        return [
+            'transaction' => $transaction,
+            'balance'     => $this->balanceRepositoryPort->findByUserId($registerTransactionDTO->getUserId())
+        ];
     }
 }

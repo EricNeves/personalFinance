@@ -1,3 +1,5 @@
+import { Balance } from "@models/balance.model";
+
 export type TransactionBody = {
   amount: number;
   description: string;
@@ -11,4 +13,14 @@ export interface Transaction {
   transactionType: string,
   createdAt?: string;
   userId: string;
+}
+
+export interface Transactions {
+  items: Transaction[];
+  total: number;
+}
+
+export interface TransactionWithBalance {
+  balance: Balance;
+  transaction: Transaction;
 }

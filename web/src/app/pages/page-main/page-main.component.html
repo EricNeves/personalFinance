@@ -38,4 +38,9 @@
     [visible]="visibleModalChangePassword"
     (changeVisible)="visibleModalChangePassword = $event"
   ></app-modal-change-password>
+
+  <app-table-transactions-logs
+    [transactions]="transactions"
+    (changeBalance)="changeBalanceValue($event)"
+  ></app-table-transactions-logs>
 </section>

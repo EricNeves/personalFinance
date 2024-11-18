@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { DialogModule } from 'primeng/dialog';
@@ -9,9 +9,8 @@ import { ToastModule } from "primeng/toast";
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { TransactionBody } from "@models/transaction.model";
+import { TransactionBody, TransactionWithBalance } from "@models/transaction.model";
 import { TransactionService } from "@services/transaction.service";
-import { Balance } from "@models/balance.model";
 
 @Component({
   selector: 'app-modal-add-transaction',
@@ -32,7 +31,7 @@ import { Balance } from "@models/balance.model";
 export class ModalAddTransactionComponent {
   @Input() visible: boolean = false;
   @Output() changeVisible: EventEmitter<boolean> = new  EventEmitter();
-  @Output() registeredTransaction: EventEmitter<Balance> = new EventEmitter();
+  @Output() registeredTransaction: EventEmitter<TransactionWithBalance> = new EventEmitter();
 
   submitted: boolean = false;
 

@@ -86,4 +86,51 @@ class TransactionPostgresRepository implements TransactionRepositoryPort
         $stmt = $this->pdo->prepare('DELETE FROM users_transactions WHERE user_id = ?');
         $stmt->execute([$userId]);
     }
+    
+    public function all(string $userId): array
+    {
+        $stmt = $this->pdo->prepare('
+            SELECT
+                *, amount::numeric as amount
+            FROM
+                users_transactions
+            WHERE
+                user_id = ?
+        ');
+        $stmt->execute([$userId]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function allPaginated(string $userId, int $offset = 1, int $limit = 5): array
+    {
+        $stmt = $this->pdo->prepare('
+            SELECT
+                id, amount::numeric as amount, transaction_type as "transactionType", user_id as "userId",
+                description, created_at as "createdAt"
+            FROM
+                users_transactions
+            WHERE
+                user_id = ?
+            ORDER BY
+                created_at
+            DESC
+            LIMIT ?
+            OFFSET ?
+        ');
+        $stmt->execute([$userId, $limit, $offset]);
+        
+        return [
+            'items' => $stmt->fetchAll(PDO::FETCH_ASSOC),
+            'total' => $this->count($userId),
+        ];
+    }
+    
+    public function count(string $userId): int
+    {
+        $stmt = $this->pdo->prepare('SELECT COUNT(*) FROM users_transactions WHERE user_id = ?');
+        $stmt->execute([$userId]);
+        
+        return $stmt->fetchColumn();
+    }
 }

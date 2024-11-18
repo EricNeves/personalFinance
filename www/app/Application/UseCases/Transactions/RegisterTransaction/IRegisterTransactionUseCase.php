@@ -8,5 +8,5 @@ use App\Domain\Entities\Transaction;
 
 interface IRegisterTransactionUseCase
 {
-    public function execute(RegisterTransactionDTO $registerTransactionDTO): Balance;
+    public function execute(RegisterTransactionDTO $registerTransactionDTO): array;
 }

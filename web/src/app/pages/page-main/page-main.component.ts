@@ -9,12 +9,16 @@ import { CardTotalExpenseComponent } from "@components/card-total-expense/card-t
 import { ModalAddTransactionComponent } from "@components/modal-add-transaction/modal-add-transaction.component";
 import { ModalChangeUsernameComponent } from "@components/modal-change-username/modal-change-username.component";
 import { ModalChangePasswordComponent } from "@components/modal-change-password/modal-change-password.component";
+import { TableTransactionsLogsComponent } from "@components/table-transactions-logs/table-transactions-logs.component";
 
 import { MessageService } from 'primeng/api';
 
 import { BalanceService } from "@services/balance.service";
 import { Balance } from "@models/balance.model";
-import {User} from "@models/user.model";
+import { User } from "@models/user.model";
+import { forkJoin } from "rxjs";
+import { TransactionService } from "@services/transaction.service";
+import {Transactions, TransactionWithBalance} from "@models/transaction.model";
 
 @Component({
   selector: 'app-page-main',
@@ -27,7 +31,8 @@ import {User} from "@models/user.model";
     ButtonModule,
     ModalAddTransactionComponent,
     ModalChangeUsernameComponent,
-    ModalChangePasswordComponent
+    ModalChangePasswordComponent,
+    TableTransactionsLogsComponent
   ],
   templateUrl: './page-main.component.html',
   styleUrl: './page-main.component.css',
@@ -49,31 +54,49 @@ export class PageMainComponent implements OnInit {
     email: ''
   }
 
+  transactions: Transactions = {
+    items: [],
+    total: 0
+  }
+
   constructor(
     private readonly balanceService: BalanceService,
     private readonly messageService: MessageService,
+    private readonly transactionService: TransactionService
   ) {
   }
 
   ngOnInit() {
-    this.balanceService.balance().subscribe({
-      next: (response) => {
-        this.balance = response.data
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Warning',
-          detail: `${error.error.message}`,
-        })
-      }
+    forkJoin({
+      balance: this.balanceService.balance(),
+      transactionsAll: this.transactionService.all()
     })
+      .subscribe({
+        next: (response) => {
+          this.balance = response.balance.data
+          this.transactions = response.transactionsAll.data
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Warning',
+            detail: `${error.error.message}`,
+          })
+        }
+      })
   }
 
-  registeredTransaction(balance: Balance): void {
+  registeredTransaction(transactionWithBalance: TransactionWithBalance): void {
     this.balance = {
       ...this.balance,
-      ...balance
+      ...transactionWithBalance.balance
+    }
+
+    this.transactions.items.unshift(transactionWithBalance.transaction)
+    this.transactions.total += 1
+
+    if (this.transactions.items.length > 4) {
+      this.transactions.items.pop()
     }
   }
 
@@ -82,6 +105,10 @@ export class PageMainComponent implements OnInit {
       ...this.user,
       ...user
     }
+  }
+
+  changeBalanceValue(balance: Balance) {
+    this.balance = balance
   }
 
   showModalAddTransaction(): void {

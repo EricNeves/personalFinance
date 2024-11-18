@@ -62,6 +62,11 @@ p-card {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
+.ngx-pagination .current {
+  background: #2563EB !important;
+  border-radius: .3rem;
+}
+
 @media (max-width: 850px) {
   .p-card-title {
     font-size: 1rem;

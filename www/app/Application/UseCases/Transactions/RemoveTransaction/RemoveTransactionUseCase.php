@@ -24,7 +24,7 @@ class RemoveTransactionUseCase implements IRemoveTransactionUseCase
     ) {
     }
     
-    public function execute(RemoveTransactionDTO $removeTransactionDTO): Balance
+    public function execute(RemoveTransactionDTO $removeTransactionDTO): array
     {
         $this->databaseTransaction->beginTransaction();
         
@@ -84,6 +84,9 @@ class RemoveTransactionUseCase implements IRemoveTransactionUseCase
         
         $this->databaseTransaction->commit();
         
-        return $this->balanceRepositoryPort->findByUserId($removeTransactionDTO->getUserId());
+        return [
+            'transaction' => $removeTransaction,
+            'balance'     => $this->balanceRepositoryPort->findByUserId($removeTransactionDTO->getUserId()),
+        ];
     }
 }

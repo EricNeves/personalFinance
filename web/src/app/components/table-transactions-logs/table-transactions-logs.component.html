@@ -1,0 +1,61 @@
+<section class="container table-transactions-logs">
+  <div class="card">
+    <p-table
+      [value]="transactions.items"
+      [loading]="isLoading"
+      styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped"
+      [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Amount</th>
+          <th>Description</th>
+          <th>Transaction Type</th>
+          <th>Created At</th>
+          <th style="text-align: center">Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{ convertMoneyValueToReal(item.amount) }}</td>
+          <td>{{ item.description }}</td>
+          <td>
+            <p-tag
+              [value]="item.transactionType === 'expense' ? 'Expense' : 'Income'"
+              [severity]="item.transactionType === 'expense' ? 'secondary' : 'success'"
+              [icon]="item.transactionType === 'expense' ? 'pi pi-arrow-up' : 'pi pi-arrow-down'
+            ">
+            </p-tag>
+          </td>
+          <td>{{ convertDateTimeValueToDate(item.createdAt) }}</td>
+          <td style="text-align: center;">
+            <p-button
+              icon="pi pi-trash"
+              severity="danger"
+              size="small"
+              (onClick)="removeTransaction($event, item.id)"
+              [style]="{ padding: '.5rem', width: '35px', }"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  @if (transactions.items.length > 0) {
+    <div class="paginator">
+      @for (item of transactions.items | paginate : {
+        id: 'transactions', itemsPerPage: 4, currentPage: currentPageTransactions, totalItems: transactions.total
+      }; track $index) {}
+
+      <pagination-controls
+        id="transactions"
+        (pageChange)="changePageTransactions($event)"
+      ></pagination-controls>
+    </div>
+  }
+</section>
+
+<p-toast position="bottom-right" />
+<p-confirmDialog />
+
+
