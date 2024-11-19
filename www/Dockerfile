@@ -5,21 +5,10 @@ RUN apk add \
     unzip \
     libc-dev \
     libpq-dev \
-    libpng-dev \
-    jpeg-dev \
     curl \
-    make \
-    gcc \
-    autoconf \
-    php-gd \
     bash
 
-RUN pecl install redis
-
-RUN docker-php-ext-enable redis.so \
-    && \
-    docker-php-ext-install pdo pdo_pgsql gd && \
-    docker-php-ext-configure gd --with-jpeg
+RUN docker-php-ext-install pdo pdo_pgsql
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 

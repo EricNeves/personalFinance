@@ -22,5 +22,5 @@ export const routes: Routes = [
     component: PageMainComponent,
     title: 'Personal Finance - Main Panel',
     canActivate: [ensureAuthenticatedGuard]
-  }
+  },
 ];

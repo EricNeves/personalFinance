@@ -10,6 +10,8 @@ services:
     restart: always
     depends_on:
       - postgres
+    ports:
+      - '5555:5555'
   nginx_api:
     container_name: nginx_api
     build:
@@ -24,7 +26,7 @@ services:
     environment:
       POSTGRES_USER: 'admin'
       POSTGRES_PASSWORD: 'admin'
-      POSTGRES_DB: 'bg_flow'
+      POSTGRES_DB: 'financial_db'
     ports:
       - '5432:5432'
     volumes:
@@ -44,8 +46,6 @@ services:
       - '4200:4200'
     volumes:
       - ./web:/app
-    depends_on:
-      - www
 
 volumes:
   db_data:

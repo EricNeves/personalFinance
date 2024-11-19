@@ -32,6 +32,10 @@ p-card {
   font-weight: bolder;
 }
 
+.p-card {
+  box-shadow: 0 0 2px #c3c3c3 !important;
+}
+
 .card-total-balance > div {
   background: #5C9DEB;
   background: -webkit-radial-gradient(circle, #5C9DEB 0%, #7388E3 100%);

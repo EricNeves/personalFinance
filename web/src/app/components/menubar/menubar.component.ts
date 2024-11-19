@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 
 import { AvatarModule } from 'primeng/avatar';
 import { MenuItem } from "primeng/api";
@@ -11,13 +11,12 @@ import { UserService } from "@services/user.service";
 
 import { MessageService } from "primeng/api";
 import {ToastModule} from "primeng/toast";
-import {User} from "@models/user.model";
+import { User } from "@models/user.model";
 
 @Component({
   selector: 'app-menubar',
   standalone: true,
   imports: [
-    RouterLink,
     AvatarModule,
     MenuModule,
     ButtonModule,
@@ -53,15 +52,6 @@ export class MenubarComponent implements OnInit {
             label: 'Change Password',
             icon: 'pi pi-shield',
             command: () => this.openModalChangePassword.emit(true)
-          }
-        ]
-      },
-      {
-        label: 'Data',
-        items: [
-          {
-            label: 'Export to PDF',
-            icon: 'pi pi-file-pdf'
           }
         ]
       },
