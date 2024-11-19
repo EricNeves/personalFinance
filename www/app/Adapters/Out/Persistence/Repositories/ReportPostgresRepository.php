@@ -64,4 +64,25 @@ class ReportPostgresRepository implements  ReportRepositoryPort
         
         return null;
     }
+
+    public function findById(string $userId): ?Report
+    {
+        $stmt = $this->pdo->prepare('
+            SELECT
+                *
+            FROM
+                users_reports
+            WHERE 
+                user_id = ?
+        ');
+        $stmt->execute([$userId]);
+
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return new Report($row['id'], stream_get_contents($row['file']), $row['user_id']);
+        }
+
+        return null;
+    }
 }
