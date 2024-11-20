@@ -3,9 +3,8 @@
 namespace App\Application\UseCases\Transactions\RegisterTransaction;
 
 use App\Application\DTOs\Transactions\RegisterTransactionDTO;
-use App\Application\Services\RegisterTransaction;
+use App\Application\Services\Transaction\RegisterTransaction;
 use App\Application\Shared\TransactionTypeValidation;
-use App\Domain\Entities\Balance;
 use App\Domain\Entities\Transaction;
 use App\Domain\Ports\Out\BalanceRepositoryPort;
 use App\Domain\Services\DatabaseTransaction;

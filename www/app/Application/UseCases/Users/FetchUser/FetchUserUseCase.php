@@ -2,7 +2,7 @@
 
 namespace App\Application\UseCases\Users\FetchUser;
 
-use App\Application\Services\AuthenticatedUserInformation;
+use App\Application\Services\User\AuthenticatedUserInformation;
 use App\Domain\Entities\User;
 
 class FetchUserUseCase implements IFetchUserUseCase
