@@ -3,8 +3,8 @@
 namespace App\Application\UseCases\Users\RegisterUser;
 
 use App\Application\DTOs\Users\RegisterUserDTO;
-use App\Application\Services\SaveInitialValueBalance;
-use App\Application\Services\UserEmailAlreadyExists;
+use App\Application\Services\Transaction\SaveInitialValueBalance;
+use App\Application\Services\User\UserEmailAlreadyExists;
 use App\Domain\Entities\Balance;
 use App\Domain\Entities\User;
 use App\Domain\Ports\Out\UserRepositoryPort;

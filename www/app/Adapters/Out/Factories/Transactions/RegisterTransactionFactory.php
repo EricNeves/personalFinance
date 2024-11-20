@@ -7,7 +7,7 @@ use App\Adapters\Out\Persistence\Repositories\TransactionPostgresRepository;
 use App\Adapters\Out\Services\DatabaseTransactionImplementation;
 use App\Adapters\Out\Services\DateAndTimeImplementation;
 use App\Adapters\Out\Services\UuidGeneratorImplementation;
-use App\Application\Services\RegisterTransaction;
+use App\Application\Services\Transaction\RegisterTransaction;
 use App\Application\Shared\CalculateFinalValueBalance;
 use App\Application\Shared\TransactionTypeValidation;
 use App\Application\Shared\UpdateBalanceValue;

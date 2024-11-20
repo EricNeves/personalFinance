@@ -3,7 +3,7 @@
 namespace App\Adapters\Out\Factories\Users;
 
 use App\Adapters\Out\Persistence\Repositories\UserPostgresRepository;
-use App\Application\Services\AuthenticatedUserInformation;
+use App\Application\Services\User\AuthenticatedUserInformation;
 use App\Application\UseCases\Users\FetchUser\FetchUserUseCase;
 use App\Infrasctructure\Database\Postgres;
 

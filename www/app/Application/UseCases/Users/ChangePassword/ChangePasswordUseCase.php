@@ -3,12 +3,11 @@
 namespace App\Application\UseCases\Users\ChangePassword;
 
 use App\Application\DTOs\Users\ChangePasswordDTO;
-use App\Application\Services\AuthenticatedUserInformation;
+use App\Application\Services\User\AuthenticatedUserInformation;
 use App\Domain\Ports\Out\UserRepositoryPort;
 use App\Domain\Services\DateAndTime;
 use App\Domain\Services\PasswordHash;
 use App\Infrasctructure\Exceptions\ApplicationErrors\BadRequestException;
-use App\Infrasctructure\Exceptions\ApplicationErrors\UnauthorizedException;
 
 class ChangePasswordUseCase implements IChangePasswordUseCase
 {

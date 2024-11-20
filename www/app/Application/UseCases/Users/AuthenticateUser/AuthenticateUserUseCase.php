@@ -3,7 +3,7 @@
 namespace App\Application\UseCases\Users\AuthenticateUser;
 
 use App\Application\DTOs\Users\AuthenticateUserDTO;
-use App\Application\Services\CommonUserAuthenticationService;
+use App\Application\Services\User\CommonUserAuthenticationService;
 
 class AuthenticateUserUseCase implements IAuthenticateUserUseCase
 {
