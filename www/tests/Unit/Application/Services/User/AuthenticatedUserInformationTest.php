@@ -1,12 +1,11 @@
 <?php
 
-use App\Application\Services\AuthenticatedUserInformation;
-use App\Adapters\Out\Persistence\Repositories\UserPostgresRepository;
+use App\Application\Services\User\AuthenticatedUserInformation;
 use App\Domain\Entities\User;
 use App\Infrasctructure\Exceptions\ApplicationErrors\NotFoundException;
 
 it('gets user information', function () {
-    $userRepository = Mockery::mock(UserPostgresRepository::class);
+    $userRepository = mockUserRepository();
     
     $user = new User('1', 'John', 'john@example.com');
     
@@ -18,9 +17,7 @@ it('gets user information', function () {
 });
 
 it('throws an exception when the user does not exists', function () {
-    $userRepository = Mockery::mock(UserPostgresRepository::class);
-    
-    $user = new User('1', 'John', 'john@example.com');
+    $userRepository = mockUserRepository();
     
     $userRepository->shouldReceive('findById')->andReturn(null);
     

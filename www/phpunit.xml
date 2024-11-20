@@ -15,4 +15,13 @@
             <directory suffix=".php">./src</directory>
         </include>
     </source>
+    <php>
+        <env name="PG_HOST" value="postgres"/>
+        <env name="PG_PORT" value="5432"/>
+        <env name="PG_USER" value="admin"/>
+        <env name="PG_PASS" value="admin"/>
+        <env name="PG_DB" value="bg_flow"/>
+
+        <env name="JWT_SECRET_KEY" value="6jJD6Y+W+!)pscMt" />
+    </php>
 </phpunit>

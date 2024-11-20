@@ -43,3 +43,76 @@ function something()
 {
     // ..
 }
+
+/**
+ * Mocks
+ */
+function mockUserRepository()
+{
+    return Mockery::mock(\App\Adapters\Out\Persistence\Repositories\UserPostgresRepository::class);
+}
+
+function mockTransactionRepository()
+{
+    return Mockery::mock(\App\Adapters\Out\Persistence\Repositories\TransactionPostgresRepository::class);
+}
+
+function mockBalanceRepository()
+{
+    return Mockery::mock(\App\Adapters\Out\Persistence\Repositories\BalancePostgresRepository::class);
+}
+
+function mockDatabaseTransactionRepository()
+{
+    return Mockery::mock(\App\Adapters\Out\Services\DatabaseTransactionImplementation::class);
+}
+
+function mockRegisterTransaction()
+{
+    return Mockery::mock(\App\Application\Services\Transaction\RegisterTransaction::class);
+}
+
+function mockPasswordHash()
+{
+    return Mockery::mock(\App\Adapters\Out\Services\PasswordHashImplementation::class);
+}
+
+function mockUserEmailAlreadyExists()
+{
+    return Mockery::mock(\App\Application\Services\User\UserEmailAlreadyExists::class);
+}
+
+function mockTokenService()
+{
+    return Mockery::mock(\App\Adapters\Out\Services\TokenServiceImplementation::class);
+}
+
+function mockTransactionTypeValidation()
+{
+    return Mockery::mock(\App\Application\Shared\TransactionTypeValidation::class);
+}
+
+function mockCalculateFinalValueTransaction()
+{
+    return Mockery::mock(\App\Application\Shared\CalculateFinalValueBalance::class);
+}
+
+function mockSaveInitialValueBalance()
+{
+    return Mockery::mock(\App\Application\Services\Transaction\SaveInitialValueBalance::class);
+}
+
+function mockUuidGenerator()
+{
+    return Mockery::mock(\App\Adapters\Out\Services\UuidGeneratorImplementation::class);
+}
+
+function mockDateAndTimeService()
+{
+    return Mockery::mock(\App\Adapters\Out\Services\DateAndTimeImplementation::class);
+}
+
+function mockAuthenticatedUserInformation()
+{
+    return Mockery::mock(App\Application\Services\User\AuthenticatedUserInformation::class);
+}
