@@ -44,7 +44,7 @@ class RemoveTransactionUseCase implements IRemoveTransactionUseCase
         );
         
         if (!$removeTransaction) {
-            throw new NotFoundException('Sorry, the transaction was not found.');
+            throw new BadRequestException('Sorry, the transaction could not be removed.');
         }
         
         $balance = $balanceByUser->getBalance();
