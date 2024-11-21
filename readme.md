@@ -45,7 +45,14 @@ No backend o projeto incorpora novos recursos que foram mencionados no livro **A
 > - Segundo o CRP, as classes que não têm uma forte ligação entre si não devem ficar no mesmo componente.
 > 
 
----
-
 Esses princípios, juntamente com outros como o **SOLID**, facilitam a **manutenção** e a **escalabilidade** da aplicação, reduzindo os recursos necessários para criar e manter o **software**, além de promoverem uma estrutura mais **robusta** e **flexível**.
 
+No **frontend**, o projeto adota uma organização modular, separando pages, components, services, models e outros elementos.
+
+- [x] Reactive Forms
+- [x] Services
+- [x] Modules
+- [x] Guards
+- [x] Interceptors
+- [x] Components
+- [x] Utils
