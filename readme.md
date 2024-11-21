@@ -68,7 +68,7 @@ No **frontend**, o projeto adota uma organização modular, separando pages, com
 - Backend
   - PHP 8.2
   - Ports and Adapters Architecture
-  - Authentication JWT
+  - Authentication - JWT
   - Middlewares
   - Routes
   - Http
@@ -95,3 +95,39 @@ No **frontend**, o projeto adota uma organização modular, separando pages, com
   - Docker
   - Docker Compose
   - Nginx  
+
+#### How to execute ?
+
+> [!NOTE]
+>
+> Para garantir a execução bem-sucedida da aplicação, é essencial seguir os passos abaixo.
+>
+
+```sh
+
+# dir
+$ cd personalFinance
+
+# install web dependencies
+$ cd web && pnpm install
+
+# install www dependencies
+$ cd www && composer install && cp .env.exemple .env
+
+# root dir
+$ docker compose up -d --build
+
+```
+
+- [x] Backend: http://127.0.0.1:8080
+- [x] Frontend: http://127.0.0.1:4200
+
+#### Tests
+
+```sh
+# enter container
+$ docker exec -it www bash
+
+# run tests
+$ composer test
+```
