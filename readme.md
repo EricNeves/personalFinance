@@ -18,7 +18,7 @@
 
 <p align="center">Data de criação: Oct 20, 2024</p>
 
-https://github.com/user-attachments/assets/3f851ec5-0ead-4e35-b346-0ca80556c3a5
+https://github.com/user-attachments/assets/24dfde31-f6d9-4b3d-92ae-18ad7eea7ec4
 
 #### Intro
 
