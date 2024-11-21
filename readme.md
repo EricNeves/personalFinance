@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-    Aplicação web desenvolvida com <strong>PHP</strong> e <strong>Angular</strong>, destacando a implementação de princípios de componentização no backend, como <strong>REP (Release/Reuse Equivalence Principle)</strong>, <strong>CCP (Common Closure Principle)</strong> e <strong>CRP (Common Reuse Principle)</strong>, além da adoção do princípio arquitetural <strong>Ports and Adapters (Hexagonal)</strong> e testes automatizados com Pest.
+    Aplicação web desenvolvida com <strong>PHP</strong> e <strong>Angular</strong>, destacando a implementação de princípios de componentização no backend, como <strong>REP (Release/Reuse Equivalence Principle)</strong>, <strong>CCP (Common Closure Principle)</strong> e <strong>CRP (Common Reuse Principle)</strong>, além da adoção do princípio arquitetural <strong>Ports and Adapters (Hexagonal)</strong> e testes automatizados com <strong>Pest</strong>.
 </p> 
 
 <p align="center">Data de criação: Oct 20, 2024</p>
