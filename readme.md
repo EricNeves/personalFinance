@@ -31,16 +31,12 @@ No backend o projeto incorpora novos recursos que foram mencionados no livro **A
 > - Do ponto de vista do design e da arquitetura de software, esse princípio significa que as classes e módulos formados em um componente devem pertencer a um grupo coeso. O componente não pode simplesmente consistir em uma mistura aleatória de classes e módulos, mas deve haver algum tema ou propósito abrangente que todos esses módulos compartilhem.
 >
 
----
-
 >
 > **CCP (Common Closure Principle)**
 > - Esse é o Single Responsibility Principle reformulado para ser aplicável aos componentes. Assim como SRP diz que uma classe não deve conter muitas razões para mudar, CCP diz que um componente não deve ter várias razões para mudar.
 > - Quando o código de uma aplicação tem que mudar, é preferível que todas as mudanças ocorram em um componente em vez de serem distribuídas por vários componentes.
 > - O CCP determina que todas as classes com probabilidade de mudar pelas mesmas razões sejam reunidas em um só lugar.
 > 
-
----
 
 >
 > **CRP (Common Reuse Principle)**
