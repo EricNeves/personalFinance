@@ -9,7 +9,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/EricNeves/personalFinance?display_timestamp=author&style=flat-square&logo=git&labelColor=%23010409&color=%23F05032">
   <img src="https://img.shields.io/github/languages/top/ericneves/personalFinance?style=flat-square&logo=php&logoColor=%23fff&label=PHP&labelColor=%23777BB4&color=%231C47CB">
-  <img src="">
+  <img src="https://img.shields.io/github/license/ericneves/personalFinance?style=flat-square&logo=github&logoColor=white&labelColor=%23000000&color=%23DEEB52">
 </p>
 
 <p align="center">
@@ -121,9 +121,6 @@ $ docker compose up -d --build
 
 ```
 
-- [x] Backend: http://127.0.0.1:8080
-- [x] Frontend: http://127.0.0.1:4200
-
 #### Tests
 
 ```sh
@@ -163,4 +160,4 @@ $ composer test
 
 #### License 📋
 
-<img src="">
+<img src="https://img.shields.io/github/license/ericneves/personalFinance?style=flat-square&logo=github&logoColor=white&labelColor=%23000000&color=%23DEEB52">
