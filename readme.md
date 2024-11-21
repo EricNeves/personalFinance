@@ -22,9 +22,9 @@
 
 **Personal Finance** é um sistema web desenvolvido com **PHP** e **Angular**, concebido para o gerenciamento de finanças pessoais, garantindo que os usuários mantenham o controle financeiro em dia.
 
-No backend o projeto incorpora novos recursos que foram mencionados no livro **Arquitetura Limpa** de **Uncle Bob**, como princípios de componentização, que priorizam a manutenção do código. Em determinados cenários, a **manutenção** é mais importante do que a **reutilização**, garantindo que os impactos de mudanças sejam minimizados ao revalidar e reimplantar o código-fonte.
+No backend o projeto incorpora recursos que foram mencionados no livro **Arquitetura Limpa** de **Uncle Bob**, como princípios de componentização, que priorizam a manutenção do código. Em determinados cenários, a **manutenção** é mais importante do que a **reutilização**, garantindo que os impactos de mudanças sejam minimizados ao revalidar e reimplantar o código-fonte.
 
-#### Princípios de Componentização
+#### Component Principles
 
 > 
 > **REP (Release/Reuse Equivalence Principle)** 
@@ -47,6 +47,12 @@ No backend o projeto incorpora novos recursos que foram mencionados no livro **A
 
 Esses princípios, juntamente com outros como o **SOLID**, facilitam a **manutenção** e a **escalabilidade** da aplicação, reduzindo os recursos necessários para criar e manter o **software**, além de promoverem uma estrutura mais **robusta** e **flexível**.
 
+- [x] Ports and Adapters Architecture
+- [x] Solid Principles
+- [x] Component Principles
+- [x] Automated Tests - (Unit/Functional)
+- [x] PSR 1,2,4 and 7
+
 No **frontend**, o projeto adota uma organização modular, separando pages, components, services, models e outros elementos.
 
 - [x] Reactive Forms
@@ -56,3 +62,36 @@ No **frontend**, o projeto adota uma organização modular, separando pages, com
 - [x] Interceptors
 - [x] Components
 - [x] Utils
+
+#### Features
+
+- Backend
+  - PHP 8.2
+  - Ports and Adapters Architecture
+  - Authentication JWT
+  - Middlewares
+  - Routes
+  - Http
+  - Database
+    - Postres:15
+  - Dependencies
+    - vlucas/phpdotenv: ^5.6
+    - ramsey/uuid: ^4.7
+    - pestphp/pest: ^3.5
+    - mockery/mockery: ^1.6
+- Frontend
+  - Angular 17
+  - Routes
+  - Guards
+  - Interceptors
+  - Models
+  - Services
+  - Dependencies
+    - ngx-pagination: ^6.0.3
+    - primeflex: ^3.3.1
+    - primeng: ^17.18.11
+    - primeicons: ^7.0.0
+- DevOps
+  - Docker
+  - Docker Compose
+  - Nginx  
