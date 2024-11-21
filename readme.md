@@ -7,9 +7,9 @@
 </h4>
 
 <p align="center">
-  <img src="https://img.shields.io/github/last-commit/EricNeves/mySecretMessage?style=flat-square&logo=github&logoColor=white&color=blue&labelColor=%23102C57">
-  <img src="https://img.shields.io/github/languages/top/ericneves/mySecretMessage?style=flat-square&logo=php&logoColor=%23f3f3f3&label=%20PHP&color=%23379777&labelColor=%23333">
-  <img src="https://img.shields.io/github/license/ericneves/mySecretMessage?style=flat-square&logo=git&labelColor=405D72&color=667BC6">
+  <img src="">
+  <img src="">
+  <img src="">
 </p>
 
 <p align="center">
@@ -17,4 +17,25 @@
 </p> 
 
 <p align="center">Data de criação: Oct 20, 2024</p>
+
+#### Intro
+
+**Personal Finance** é um sistema web desenvolvido com **PHP** e **Angular**, concebido para o gerenciamento de finanças pessoais, garantindo que os usuários mantenham o controle financeiro em dia.
+
+No backend o projeto incorpora novos recursos que foram mencionados no livro **Arquitetura Limpa** de **Uncle Bob**, como princípios de componentização, que priorizam a manutenção do código. Em determinados cenários, a **manutenção** é mais importante do que a **reutilização**, garantindo que os impactos de mudanças sejam minimizados ao revalidar e reimplantar o código-fonte.
+
+> [!NOTE]
+> **REP (Release/Reuse Equivalence Principle)** 
+> - Do ponto de vista do design e da arquitetura de software, esse princípio significa que as classes e módulos formados em um componente devem pertencer a um grupo coeso. O componente não pode simplesmente consistir em uma mistura aleatória de classes e módulos, mas deve haver algum tema ou propósito abrangente que todos esses módulos compartilhem.
+>
+
+> [!NOTE]
+> CCP (Common Closure Principle)
+> 
+> 
+
+> [!NOTE]
+> CRP (Common Reuse Principle)
+> 
+> 
 
