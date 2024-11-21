@@ -18,16 +18,20 @@
 
 <p align="center">Data de criação: Oct 20, 2024</p>
 
-#### Intro
+### Intro
 
 **Personal Finance** é um sistema web desenvolvido com **PHP** e **Angular**, concebido para o gerenciamento de finanças pessoais, garantindo que os usuários mantenham o controle financeiro em dia.
 
 No backend o projeto incorpora novos recursos que foram mencionados no livro **Arquitetura Limpa** de **Uncle Bob**, como princípios de componentização, que priorizam a manutenção do código. Em determinados cenários, a **manutenção** é mais importante do que a **reutilização**, garantindo que os impactos de mudanças sejam minimizados ao revalidar e reimplantar o código-fonte.
 
+#### Princípios de Componentização
+
 > 
 > **REP (Release/Reuse Equivalence Principle)** 
 > - Do ponto de vista do design e da arquitetura de software, esse princípio significa que as classes e módulos formados em um componente devem pertencer a um grupo coeso. O componente não pode simplesmente consistir em uma mistura aleatória de classes e módulos, mas deve haver algum tema ou propósito abrangente que todos esses módulos compartilhem.
 >
+
+---
 
 >
 > **CCP (Common Closure Principle)**
@@ -36,8 +40,14 @@ No backend o projeto incorpora novos recursos que foram mencionados no livro **A
 > - O CCP determina que todas as classes com probabilidade de mudar pelas mesmas razões sejam reunidas em um só lugar.
 > 
 
+---
+
 >
 > **CRP (Common Reuse Principle)**
+> - Segundo esse princípio, as classes e módulos que tendem a ser reutilizados juntos pertecem ao mesmo componente.
+> - Classes que possuem um forte aclopamente entre si e são reutilizadas juntas devem pertencer ao mesmo componente.
+> - Segundo o CRP, as classes que não têm uma forte ligação entre si não devem ficar no mesmo componente.
 > 
-> 
+
+---
 
