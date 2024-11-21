@@ -18,7 +18,7 @@
 
 <p align="center">Data de criação: Oct 20, 2024</p>
 
-### Intro
+#### Intro
 
 **Personal Finance** é um sistema web desenvolvido com **PHP** e **Angular**, concebido para o gerenciamento de finanças pessoais, garantindo que os usuários mantenham o controle financeiro em dia.
 
@@ -46,4 +46,6 @@ No backend o projeto incorpora novos recursos que foram mencionados no livro **A
 > 
 
 ---
+
+Esses princípios, juntamente com outros como o **SOLID**, facilitam a **manutenção** e a **escalabilidade** da aplicação, reduzindo os recursos necessários para criar e manter o **software**, além de promoverem uma estrutura mais **robusta** e **flexível**.
 
