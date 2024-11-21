@@ -7,8 +7,8 @@
 </h4>
 
 <p align="center">
-  <img src="">
-  <img src="">
+  <img src="https://img.shields.io/github/last-commit/EricNeves/personalFinance?display_timestamp=author&style=flat-square&logo=git&labelColor=%23010409&color=%23F05032">
+  <img src="https://img.shields.io/github/languages/top/ericneves/personalFinance?style=flat-square&logo=php&logoColor=%23fff&label=PHP&labelColor=%23777BB4&color=%231C47CB">
   <img src="">
 </p>
 
@@ -55,7 +55,7 @@ Esses princípios, juntamente com outros como o **SOLID**, facilitam a **manuten
 - [x] Automated Tests - (Unit/Functional)
 - [x] PSR 1,2,4 and 7
 
-No **frontend**, o projeto adota uma organização modular, separando pages, components, services, models e outros elementos.
+No **frontend**, o projeto adota uma organização modular, separando pages, components, services, models e outros elementos, bem como a manipulação de eventos e ciclo de vida dos componentes.
 
 - [x] Reactive Forms
 - [x] Services
