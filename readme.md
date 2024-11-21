@@ -13,14 +13,14 @@
 </p>
 
 <p align="center">
-    Aplicação web desenvolvida com <strong>PHP</strong> e <strong>Angular</strong>, destacando a implementação de princípios de componentização no backend, como <strong>REP (Release/Reuse Equivalence Principle)</strong>, <strong>CCP (Common Closure Principle)</strong> e <strong>CRP (Common Reuse Principle)</strong>, além da adoção do princípio arquitetural <strong>Ports and Adapters (Hexagonal)</strong>.
+    Aplicação web desenvolvida com <strong>PHP</strong> e <strong>Angular</strong>, destacando a implementação de princípios de componentização no backend, como <strong>REP (Release/Reuse Equivalence Principle)</strong>, <strong>CCP (Common Closure Principle)</strong> e <strong>CRP (Common Reuse Principle)</strong>, além da adoção do princípio arquitetural <strong>Ports and Adapters (Hexagonal)</strong> e testes automatizados com Pest.
 </p> 
 
 <p align="center">Data de criação: Oct 20, 2024</p>
 
 https://github.com/user-attachments/assets/24dfde31-f6d9-4b3d-92ae-18ad7eea7ec4
 
-#### Intro
+#### Intro 📖
 
 **Personal Finance** é um sistema web desenvolvido com **PHP** e **Angular**, concebido para o gerenciamento de finanças pessoais, garantindo que os usuários mantenham o controle financeiro em dia.
 
@@ -43,7 +43,7 @@ No backend o projeto incorpora recursos que foram mencionados no livro **Arquite
 >
 > **CRP (Common Reuse Principle)**
 > - Segundo esse princípio, as classes e módulos que tendem a ser reutilizados juntos pertecem ao mesmo componente.
-> - Classes que possuem um forte aclopamente entre si e são reutilizadas juntas devem pertencer ao mesmo componente.
+> - Classes que possuem um forte aclopamento entre si e são reutilizadas juntas devem pertencer ao mesmo componente.
 > - Segundo o CRP, as classes que não têm uma forte ligação entre si não devem ficar no mesmo componente.
 > 
 
@@ -65,7 +65,7 @@ No **frontend**, o projeto adota uma organização modular, separando pages, com
 - [x] Components
 - [x] Utils
 
-#### Features
+#### Features 🚀
 
 - Backend
   - PHP 8.2
@@ -98,7 +98,7 @@ No **frontend**, o projeto adota uma organização modular, separando pages, com
   - Docker Compose
   - Nginx  
 
-#### How to execute ?
+#### How to execute ? 💡
 
 > [!NOTE]
 >
@@ -121,7 +121,7 @@ $ docker compose up -d --build
 
 ```
 
-#### Tests
+#### Tests 🔋
 
 ```sh
 # enter the container
@@ -131,7 +131,7 @@ $ docker exec -it www bash
 $ composer test
 ```
 
-#### Author 
+#### Author 🗿
 
 <table>
   <tr>
