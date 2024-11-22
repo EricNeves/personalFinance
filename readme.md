@@ -53,7 +53,7 @@ Esses princípios, juntamente com outros como o **SOLID**, facilitam a **manuten
 - [x] Solid Principles
 - [x] Component Principles
 - [x] Automated Tests - (Unit/Functional)
-- [x] PSR 1,2,4 and 7
+- [x] PSR 1,4 and 7
 
 No **frontend**, o projeto adota uma organização modular, separando pages, components, services, models e outros elementos, bem como a manipulação de eventos e ciclo de vida dos componentes.
 
