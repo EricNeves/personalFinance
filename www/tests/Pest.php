@@ -116,3 +116,13 @@ function mockAuthenticatedUserInformation()
 {
     return Mockery::mock(App\Application\Services\User\AuthenticatedUserInformation::class);
 }
+
+function mockPDOStatement()
+{
+    return Mockery::mock(\PDOStatement::class);
+}
+
+function mockPDO()
+{
+    return Mockery::mock(\PDO::class);
+}
