@@ -114,7 +114,7 @@ $ cd personalFinance
 $ cd web && pnpm install
 
 # install www dependencies
-$ cd www && composer install && cp .env.example .env
+$ cd www && composer install
 
 # root dir
 $ docker compose up -d --build
