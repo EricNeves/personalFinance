@@ -1,13 +1,15 @@
-FROM node:21-alpine
+FROM node:21-alpine as node
 
 WORKDIR /app
 
 COPY . .
 
 RUN npm install -g pnpm
-RUN npm install -g @angular/cli
 RUN pnpm install
+RUN pnpm run build
 
-EXPOSE 4200
+FROM nginx:alpine
 
-CMD ["pnpm", "start", "--host", "0.0.0.0"]
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=node /app/dist/browser /usr/share/nginx/html

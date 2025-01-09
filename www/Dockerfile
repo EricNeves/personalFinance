@@ -16,8 +16,6 @@ COPY . .
 
 COPY infra/php/php.ini /usr/local/etc/php/conf.d/
 
-RUN cp .env.example.example .env.example
-
 RUN composer install
 
 EXPOSE 9000

@@ -10,8 +10,6 @@ services:
     restart: always
     depends_on:
       - postgres
-    ports:
-      - '5555:5555'
   nginx_api:
     container_name: nginx_api
     build:
@@ -33,12 +31,12 @@ services:
       - db_data:/var/lib/postgresql/data
       - ./resources/sql:/docker-entrypoint-initdb.d
   web:
-    container_name: 'web'
+    container_name: web
     build:
       context: ./web
       dockerfile: Dockerfile
     ports:
-      - '4200:4200'
+      - '80:80'
     volumes:
       - ./web:/app
 
