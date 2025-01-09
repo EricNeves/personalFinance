@@ -96,13 +96,13 @@ No **frontend**, o projeto adota uma organização modular, separando pages, com
 - DevOps
   - Docker
   - Docker Compose
-  - Nginx  
+  - Nginx (Reverse Proxy)
 
 #### How to execute ? 💡
 
 > [!NOTE]
 >
-> Para garantir a execução bem-sucedida da aplicação, é essencial seguir os passos abaixo.
+> Para garantir a execução bem-sucedida da aplicação, execute o comando abaixo.
 >
 
 ```sh
@@ -110,14 +110,8 @@ No **frontend**, o projeto adota uma organização modular, separando pages, com
 # dir
 $ cd personalFinance
 
-# install web dependencies
-$ cd web && pnpm install
-
-# install www dependencies
-$ cd www && composer install
-
-# root dir
-$ docker compose up -d --build
+# docker command
+$ docker compose up -d 
 
 ```
 
