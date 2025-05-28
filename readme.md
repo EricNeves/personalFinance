@@ -26,6 +26,8 @@ https://github.com/user-attachments/assets/24dfde31-f6d9-4b3d-92ae-18ad7eea7ec4
 
 No backend o projeto incorpora recursos que foram mencionados no livro **Arquitetura Limpa** de **Uncle Bob**, como princípios de componentização, que priorizam a manutenção do código. Em determinados cenários, a **manutenção** é mais importante do que a **reutilização**, garantindo que os impactos de mudanças sejam minimizados ao revalidar e reimplantar o código-fonte.
 
+**Obs**: Embora a precisão em valores monetários seja crucial em cenários reais, neste projeto ela não foi necessária devido à simplicidade do contexto.
+
 #### Component Principles
 
 > 
